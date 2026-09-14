@@ -1,0 +1,113 @@
+goal: 경기문화재단 임직원이 QR로 접속해 기관코드로 소속을 확인하고 무작위 계정을 발급받아 저장한 뒤 위둘(WeeDool) EAP 앱으로 넘어가도록 안내하는 반응형 웹사이트를 mock 데이터로 동작하게 구현하고, 백엔드가 그대로 따를 API 계약 문서를 함께 산출한다.
+task_type: code
+brownfield_context:
+  project_type: greenfield
+constraints:
+  - 기술 스택은 Next.js + TypeScript(App Router) + Tailwind CSS
+  - 이름·이메일·연락처·부서·성별·연령 등 개인정보를 일절 수집·전송하지 않음(비식별)
+  - 아이디/비밀번호 찾기 및 복구 경로 없음
+  - 회원가입 절차 없음(무작위 계정 발급만)
+  - 프론트엔드에 TTL 값을 고정하지 않고 서버가 반환한 account.expiresAt을 그대로 표시
+  - 서버 API는 구현하지 않고 mock 데이터로 대체
+  - 매뉴얼은 PDF 한 파일을 프론트엔드 정적 파일로 두고 다운로드 버튼으로 바로 제공(두 곳 모두 같은 파일)
+  - mock이 가정하는 서버 반환값(아이디·비밀번호 형식, QR 파라미터 키 이름, expiresAt 형식)은 Claude 초안 후 사용자 검토로 확정하며 확정 전까지 미확정 표시
+  - '흐름 순서 고정(인계 문서 원안에 매뉴얼 다운로드를 두 곳 추가): 기관코드 확인 → 랜딩 안내 → 매뉴얼 다운로드 → 계정 발급 → PNG 다운로드 → 앱 설치 QR·링크 → 매뉴얼 다운로드'
+  - 만료 시 웹에서 바로 재발급 가능(계정 재발급 필요 안내 및 재발급 다운로드 버튼)
+  - '화면 용어 고정: 기관코드, 계정, 기관, 운영사, 자가진단(랜딩 안내의 앱 기능 소개와 익명성 조항 문구에서 사용)'
+  - 반응형·접근성 필수(글자 크기 크게·대비·터치 영역)
+  - 기관코드 확인 화면을 먼저 두고, 확인 후 들어가는 내부 페이지를 위에서 아래로 보는 랜딩 페이지로 구성. 주소는 기관코드 확인 화면 /verify?GGCF26={기관코드}, 랜딩 페이지 /welcome. 기관코드 미확인 상태로 /welcome에 접근하거나 루트(/)로 들어오면 /verify로 보냄. 루트는 나중에 다른 용도로 쓸 수 있게 비워 둠. 확인 상태는 브라우저에 저장해 새로고침해도 유지. 랜딩 페이지의 섹션 순서·표시 조건은 설정 한 곳에서 관리하고, 섹션별 컴포넌트와 문구 파일을 분리해 수정·확장이 쉽게 구현
+  - UX 라이팅은 동작 원리를 설명하지 않고, 버튼으로 충분하면 문구를 두지 않음
+  - 기획 문서가 사용자에게 승인되기 전에는 프론트엔드 구현을 시작하지 않음
+  - 범위가 1주를 넘길 것 같으면 의뢰자에게 먼저 알림
+acceptance_criteria:
+  - QR 파라미터로 기관코드가 자동 입력되고, 입력칸에 6글자가 채워지면 바로 확인해 랜딩 페이지로 진행하며, 인식 실패·오류 시 수기 입력으로 소속을 확인할 수 있다
+  - 위둘 랜딩 안내(앱에서 상담·자가진단 이용)와, 계약 5개 조항(contractClauses) 기반 익명성이 충분히 보장된다고 하는 사용자 안심 유도 설명이 제공된다
+  - 무작위 계정(아이디·비밀번호)이 만료 시각(account.expiresAt)과 제한 시간 안에 앱에 로그인해야 한다는 문구와 함께 표시되고, 만료 시각이 지나면 같은 화면에 계정 재발급 필요 안내 및 재발급 다운로드 버튼이 표시된다
+  - 앱 이름·기관코드·아이디·비밀번호·앱 설치 QR을 담은 PNG가 계정 발급·재발급 시 브라우저 기본 다운로드 폴더로 자동 다운로드되고, 「이미지로 저장」 버튼으로 다시 받을 수 있으며, 다운로드 여부와 관계없이 다음 단계로 진행할 수 있다
+  - 앱 설치 QR·링크(iOS/Android)와 단계별 사용 매뉴얼(글+그림)이 계정 안내 영역과 분리된 영역으로 제공된다
+  - 백엔드가 그대로 구현할 수 있는 API 계약 문서(엔드포인트, 요청/응답 필드, expiresAt 반환 규칙, 에러 코드, 미확정 항목 표시)가 산출된다
+  - 화면 흐름·화면 문구·mock 가정값 초안을 담은 기획 문서가 구현 착수 전에 사용자 승인을 받는다
+ontology_schema:
+  name: WeeDool 안내·계정발급 도메인
+  description: QR 진입부터 계정 발급·저장·앱 이동까지의 안내 웹사이트 흐름과, 서버가 반환한다고 가정하는 계정·기관·만료 데이터를 표현하는 도메인 모델
+  fields:
+    - name: orgCode
+      type: string
+      required: true
+      description: 재단당 1개, 6글자, QR 파라미터로 전달, 암복호화하지 않음
+    - name: qrParamKey
+      type: string
+      required: true
+      description: 기관코드를 담는 QR 파라미터 키 이름 — GGCF26(확정)
+    - name: account
+      type: object
+      required: true
+      description: 서버가 반환하는 무작위 임시 계정 — accountId(string, wd + 소문자·숫자 6자리), accountPassword(string, 소문자·숫자 8자리), 두 값 모두 0·o·1·l·i 제외, expiresAt(ISO 8601 string, 발급~첫 로그인 구간 만료 시각)
+    - name: ttlMinutes
+      type: number
+      required: false
+      description: 기획 참고값 10분, 발급 시점부터 계산. 프론트는 사용하지 않고 expiresAt만 표시
+    - name: flowStep
+      type: enum
+      required: true
+      description: orgCode | landing | manualDownload | issue | credentialDownload | install | manualDownloadFinal — 흐름 7단계의 현재 단계 구분에 사용
+    - name: contractClauses
+      type: array
+      required: true
+      description: 계약 5개 조항을 근거로 한 익명성 안내 항목 — 계약 원문은 화면에 쓰지 않고 부드러운 안내 문구만 표시
+    - name: credentialImage
+      type: object
+      required: true
+      description: PNG — appName, orgCode, accountId, accountPassword, iOS 설치 QR, Android 설치 QR 포함
+    - name: appStoreLinks
+      type: object
+      required: true
+      description: iOS/Android 설치 링크와 QR 이미지. 나중에 함께 제공받으며 그 전까지 플레이스홀더 사용
+    - name: contactInfo
+      type: string
+      required: true
+      description: 운영사 문의처 031-607-7560(평일 10:00~17:00)
+evaluation_principles:
+  - name: 비식별 준수
+    description: 개인정보를 수집·전송하지 않는다
+    weight: 1.0
+  - name: 고연령 사용성
+    description: 버튼 순서까지 단계별 안내, 글+그림, 접근성
+    weight: 0.9
+  - name: API 계약 명료성
+    description: 백엔드가 역설계 없이 구현 가능하도록 엔드포인트·스키마·에러·만료 규칙·미확정 항목 명시
+    weight: 0.9
+  - name: TTL 유연성
+    description: TTL 값을 고정하지 않고 expiresAt을 표시
+    weight: 0.8
+  - name: 용어·문언 일관성
+    description: 고정 용어와 계약 조항의 뜻을 유지
+    weight: 0.8
+  - name: 범위 준수
+    description: 고정한 흐름 순서 유지. 기기별 저장 안내·만료 전용 화면을 만들지 않고, 만료는 발급 화면 안의 재발급 필요 안내와 재발급 버튼으로 처리
+    weight: 0.7
+exit_conditions:
+  - name: 기획 문서 승인
+    description: 구현 착수 전 기획 문서가 사용자 승인을 받음
+    criteria: 화면 흐름·문구·mock 가정값 초안에 사용자 승인 기록이 있음. 익명성 설명 문구가 계약 5개 조항의 뜻을 넘어서 약속하지 않는지 확인을 포함
+  - name: 산출물 완성
+    description: mock 동작 프론트엔드와 API 계약 문서 완성
+    criteria: 흐름 7단계 화면 구현 + 계약 문서 산출
+  - name: 웹 완료 기준 도달
+    description: 이용자가 기관코드 확인→계정 발급→다운로드 버튼→앱 스토어 이동까지 안내받고, 만료 시 같은 화면에서 계정을 재발급받을 수 있음
+    criteria: 앱 로그인 성공은 웹 기준에서 제외
+  - name: 미확정 항목 위임
+    description: API 구성과 에러 코드 이름·개수는 계약 문서에 가정으로 표기해 백엔드 협의로 넘김. 그 밖의 사항(QR 파라미터 키 GGCF26, 암복호화 없음, 대소문자 구분 안 함, TTL은 발급 시점부터 계산, 재발급은 이전 계정과 무관·횟수 제한 없음, 아이디·비밀번호 형식, 에러 응답 형식, mock 규칙)은 확정으로 표기
+    criteria: docs/API_계약.md에 확정·가정 구분이 명시됨
+metadata:
+  seed_id: seed_349cda007c42
+  version: 1.0.0
+  revision: 6
+  created_at: '2026-09-13T08:31:23.874492Z'
+  ambiguity_score: 0.121
+  interview_id: interview_20260913_074649
+  qa_score: 0.87
+  qa_score_revision: 1
+  accepted_below_threshold: true
+  accepted_by_user: true
+  source_document: docs/52_안내웹사이트_인계.md
