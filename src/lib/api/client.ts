@@ -1,4 +1,4 @@
-import { ApiError } from './error';
+import { ApiError } from './errors';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? '';
 

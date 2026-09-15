@@ -1,3 +1,9 @@
+import { RequireOrgCode } from '@/features/flow/RequireOrgCode';
+
 export default function WelcomePage() {
-  return <main>welcome</main>;
+  return (
+    <RequireOrgCode>
+      <main>welcome</main>
+    </RequireOrgCode>
+  );
 }
