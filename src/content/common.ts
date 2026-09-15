@@ -6,7 +6,8 @@ export const commonContent = {
   },
   footer: {
     // TODO: 문구 개선 필요
-    text: '㈜튜링바이오 031-607-7560 · 평일 10:00–17:00',
+    // text: '㈜튜링바이오 031-607-7560 · 평일 10:00–17:00',
+    text: 'Footer',
     telHref: 'tel:0316077560',
   },
 } as const;
