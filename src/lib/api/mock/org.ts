@@ -14,7 +14,10 @@ export function assertMockOrgCode(orgCode: string): void {
   }
 }
 
-export async function mockVerifyOrgCode(orgCode: string): Promise<void> {
+export async function mockVerifyOrgCode(orgCode: string): Promise<boolean> {
   await delay();
-  assertMockOrgCode(orgCode);
+  if (orgCode === SERVER_ERROR_ORG_CODE) {
+    throw new ApiError('SERVER_ERROR');
+  }
+  return orgCode === VALID_ORG_CODE;
 }

@@ -38,7 +38,7 @@ ontology_schema:
     - name: qrParamKey
       type: string
       required: true
-      description: 기관코드를 담는 QR 파라미터 키 이름 — GGCF26(확정)
+      description: 기관코드를 담는 QR 파라미터 키 이름 — orgCode(확정)
     - name: account
       type: object
       required: true
@@ -97,7 +97,7 @@ exit_conditions:
     description: 이용자가 기관코드 확인→계정 발급→다운로드 버튼→앱 스토어 이동까지 안내받고, 만료 시 같은 화면에서 계정을 재발급받을 수 있음
     criteria: 앱 로그인 성공은 웹 기준에서 제외
   - name: 미확정 항목 위임
-    description: API 구성과 에러 코드 이름·개수는 계약 문서에 가정으로 표기해 백엔드 협의로 넘김. 그 밖의 사항(QR 파라미터 키 GGCF26, 암복호화 없음, 대소문자 구분 안 함, TTL은 발급 시점부터 계산, 재발급은 이전 계정과 무관·횟수 제한 없음, 아이디·비밀번호 형식, 에러 응답 형식, mock 규칙)은 확정으로 표기
+    description: API 구성과 에러 코드 이름·개수는 계약 문서에 가정으로 표기해 백엔드 협의로 넘김. 그 밖의 사항(QR 파라미터 키 orgCode, 암복호화 없음, 대소문자 구분 안 함, TTL은 발급 시점부터 계산, 재발급은 이전 계정과 무관·횟수 제한 없음, 아이디·비밀번호 형식, 에러 응답 형식, mock 규칙)은 확정으로 표기
     criteria: docs/API_계약.md에 확정·가정 구분이 명시됨
 metadata:
   seed_id: seed_349cda007c42

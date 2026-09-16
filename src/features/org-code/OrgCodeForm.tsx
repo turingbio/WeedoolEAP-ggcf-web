@@ -4,7 +4,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { commonContent } from '@/content/common';
 import { useFlow } from '@/features/flow/FlowProvider';
-import { toErrorKind } from '@/lib/api/errors';
 import { verifyOrgCode } from '@/lib/api/org';
 import { orgCodeContent } from './content';
 
@@ -24,10 +23,10 @@ function normalizeOrgCode(value: string): string {
 /** 기관코드 API 검증 결과 반환 */
 async function checkOrgCode(orgCode: string): Promise<VerifyResult> {
   try {
-    await verifyOrgCode(orgCode);
-    return 'ok';
-  } catch (error) {
-    return toErrorKind(error) === 'invalidOrgCode' ? 'invalid' : 'error';
+    const valid = await verifyOrgCode(orgCode);
+    return valid ? 'ok' : 'invalid';
+  } catch {
+    return 'error';
   }
 }
 
