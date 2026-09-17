@@ -38,6 +38,17 @@ export function InstallSection({ id }: SectionProps) {
           </div>
         ))}
       </div>
+
+      <p className="mt-4 text-center text-muted">{installContent.qrCaption}</p>
+
+      <ButtonLink
+        href={links.manual.href}
+        download={links.manual.fileName}
+        variant="secondary"
+        className="mt-8"
+      >
+        {installContent.manualButton}
+      </ButtonLink>
     </SectionWrapper>
   );
 }

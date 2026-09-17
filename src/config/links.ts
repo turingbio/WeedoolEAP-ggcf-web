@@ -12,5 +12,4 @@ export const links = {
     href: 'https://play.google.com/store/apps/details?id=com.turingbio.trb_weedool_life_app.v2&hl=ko',
     qrImage: '/store/qr-android.png',
   },
-  introImage: '/brand/intro.png',
 } as const;

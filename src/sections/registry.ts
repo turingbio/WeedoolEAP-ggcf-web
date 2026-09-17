@@ -1,12 +1,13 @@
 import type { ComponentType } from 'react';
 import type { SectionProps } from './types';
 import { FlowState } from '@/types/domain';
+import { HeroSection } from './hero/HeroSection';
 import { IntroSection } from './intro/IntroSection';
 import { AnonymitySection } from './anonymity/AnonymitySection';
-import { ManualSection } from './manual/ManualSection';
 import { AccountSection } from './account/AccountSection';
-import { CredentialImageSection } from './credential-image/CredentialImageSection';
+import { AppFlowSection } from './app-flow/AppFlowSection';
 import { InstallSection } from './install/InstallSection';
+import { FaqSection } from './faq/FaqSection';
 export type SectionDefinition = {
   /** HTML anchor id (페이지 내 유일한 값) */
   id: string;
@@ -23,16 +24,11 @@ export type SectionDefinition = {
  * 배열 순서대로 렌더링됨.섹션의 순서 변경, 비활성화, 추가는 이 배열만 수정
  */
 export const landingSections: SectionDefinition[] = [
+  { id: 'hero', Component: HeroSection, enabled: true },
   { id: 'intro', Component: IntroSection, enabled: true },
   { id: 'anonymity', Component: AnonymitySection, enabled: true },
-  { id: 'manual-top', Component: ManualSection, enabled: true },
   { id: 'account', Component: AccountSection, enabled: true },
-  {
-    id: 'credential-image',
-    Component: CredentialImageSection,
-    enabled: true,
-    visibleWhen: (state) => state.account !== null,
-  },
+  { id: 'app-flow', Component: AppFlowSection, enabled: true },
   { id: 'install', Component: InstallSection, enabled: true },
-  { id: 'manual-bottom', Component: ManualSection, enabled: true },
+  { id: 'faq', Component: FaqSection, enabled: true },
 ];

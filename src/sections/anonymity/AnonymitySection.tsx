@@ -5,13 +5,12 @@ import { anonymityContent } from './content';
 export function AnonymitySection({ id }: SectionProps) {
   return (
     <SectionWrapper id={id} title={anonymityContent.title}>
-      <ul className="flex flex-col gap-3">
-        {anonymityContent.items.map((item) => (
-          <li key={item} className="rounded-xl bg-surface px-5 py-4">
-            {item}
-          </li>
-        ))}
-      </ul>
+      {anonymityContent.paragraphs.map((paragraph) => (
+        <p key={paragraph} className="mb-2">
+          {paragraph}
+        </p>
+      ))}
+      <p className="mt-6 text-center font-bold">{anonymityContent.closing}</p>
     </SectionWrapper>
   );
 }
