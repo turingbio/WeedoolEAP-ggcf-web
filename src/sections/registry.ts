@@ -5,7 +5,7 @@ import { HeroSection } from './hero/HeroSection';
 import { IntroSection } from './intro/IntroSection';
 import { AnonymitySection } from './anonymity/AnonymitySection';
 import { AccountSection } from './account/AccountSection';
-import { AppFlowSection } from './app-flow/AppFlowSection';
+import { ProcessSection } from './process/ProcessSection';
 import { InstallSection } from './install/InstallSection';
 import { FaqSection } from './faq/FaqSection';
 export type SectionDefinition = {
@@ -28,7 +28,7 @@ export const landingSections: SectionDefinition[] = [
   { id: 'intro', Component: IntroSection, enabled: true },
   { id: 'anonymity', Component: AnonymitySection, enabled: true },
   { id: 'account', Component: AccountSection, enabled: true },
-  { id: 'app-flow', Component: AppFlowSection, enabled: true },
+  { id: 'process', Component: ProcessSection, enabled: true },
   { id: 'install', Component: InstallSection, enabled: true },
   { id: 'faq', Component: FaqSection, enabled: true },
 ];

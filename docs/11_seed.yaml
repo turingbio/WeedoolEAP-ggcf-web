@@ -9,10 +9,10 @@ constraints:
   - 회원가입 절차 없음(무작위 계정 발급만)
   - 프론트엔드에 TTL 값을 고정하지 않고 서버가 반환한 account.expiresAt을 그대로 표시
   - 서버 API는 구현하지 않고 mock 데이터로 대체
-  - 매뉴얼은 PDF 한 파일을 프론트엔드 정적 파일로 두고 다운로드 버튼으로 바로 제공(두 곳 모두 같은 파일)
+  - 매뉴얼은 PDF 한 파일을 프론트엔드 정적 파일로 두고 앱 설치 섹션의 다운로드 버튼 한 곳에서 제공
   - mock이 가정하는 서버 반환값(아이디·비밀번호 형식, QR 파라미터 키 이름, expiresAt 형식)은 Claude 초안 후 사용자 검토로 확정하며 확정 전까지 미확정 표시
-  - '흐름 순서 고정(인계 문서 원안에 매뉴얼 다운로드를 두 곳 추가): 기관코드 확인 → 랜딩 안내 → 매뉴얼 다운로드 → 계정 발급 → PNG 다운로드 → 앱 설치 QR·링크 → 매뉴얼 다운로드'
-  - 만료 시 웹에서 바로 재발급 가능(계정 재발급 필요 안내 및 재발급 다운로드 버튼)
+  - '화면 구성 고정(docs/21_UX_문구.md v0.8): 기관코드 확인(/verify) → 랜딩(/welcome) 7섹션 — hero, intro, anonymity, account, process, install, faq'
+  - 만료 전용 화면과 재발급 버튼을 두지 않음. 계정은 화면 state로만 유지하고, 새로고침하면 발급 전 상태로 돌아가 새 계정을 받음
   - '화면 용어 고정: 기관코드, 계정, 기관, 운영사, 자가진단(랜딩 안내의 앱 기능 소개와 익명성 조항 문구에서 사용)'
   - 반응형·접근성 필수(글자 크기 크게·대비·터치 영역)
   - 기관코드 확인 화면을 먼저 두고, 확인 후 들어가는 내부 페이지를 위에서 아래로 보는 랜딩 페이지로 구성. 주소는 기관코드 확인 화면 /verify?GGCF26={기관코드}, 랜딩 페이지 /welcome. 기관코드 미확인 상태로 /welcome에 접근하거나 루트(/)로 들어오면 /verify로 보냄. 루트는 나중에 다른 용도로 쓸 수 있게 비워 둠. 확인 상태는 브라우저에 저장해 새로고침해도 유지. 랜딩 페이지의 섹션 순서·표시 조건은 설정 한 곳에서 관리하고, 섹션별 컴포넌트와 문구 파일을 분리해 수정·확장이 쉽게 구현
@@ -22,8 +22,8 @@ constraints:
 acceptance_criteria:
   - QR 파라미터로 기관코드가 자동 입력되고, 입력칸에 6글자가 채워지면 바로 확인해 랜딩 페이지로 진행하며, 인식 실패·오류 시 수기 입력으로 소속을 확인할 수 있다
   - 위둘 랜딩 안내(앱에서 상담·자가진단 이용)와, 계약 5개 조항(contractClauses) 기반 익명성이 충분히 보장된다고 하는 사용자 안심 유도 설명이 제공된다
-  - 무작위 계정(아이디·비밀번호)이 만료 시각(account.expiresAt)과 제한 시간 안에 앱에 로그인해야 한다는 문구와 함께 표시되고, 만료 시각이 지나면 같은 화면에 계정 재발급 필요 안내 및 재발급 다운로드 버튼이 표시된다
-  - 앱 이름·기관코드·아이디·비밀번호·앱 설치 QR을 담은 PNG가 계정 발급·재발급 시 브라우저 기본 다운로드 폴더로 자동 다운로드되고, 「이미지로 저장」 버튼으로 다시 받을 수 있으며, 다운로드 여부와 관계없이 다음 단계로 진행할 수 있다
+  - 무작위 계정(아이디·비밀번호)이 만료 시각(account.expiresAt)과 제한 시간 안에 앱에 로그인해야 한다는 문구와 함께 표시되고, 발급 실패 시 오류 안내와 재시도 버튼이 표시된다
+  - 앱 이름·기관코드·아이디·비밀번호·앱 설치 QR을 담은 PNG가 계정 발급 시 브라우저 기본 다운로드 폴더로 자동 다운로드되고, 「이미지로 저장」 버튼으로 다시 받을 수 있으며, 다운로드 여부와 관계없이 다음 단계로 진행할 수 있다
   - 앱 설치 QR·링크(iOS/Android)와 단계별 사용 매뉴얼(글+그림)이 계정 안내 영역과 분리된 영역으로 제공된다
   - 백엔드가 그대로 구현할 수 있는 API 계약 문서(엔드포인트, 요청/응답 필드, expiresAt 반환 규칙, 에러 코드, 미확정 항목 표시)가 산출된다
   - 화면 흐름·화면 문구·mock 가정값 초안을 담은 기획 문서가 구현 착수 전에 사용자 승인을 받는다
@@ -50,7 +50,7 @@ ontology_schema:
     - name: flowStep
       type: enum
       required: true
-      description: orgCode | landing | manualDownload | issue | credentialDownload | install | manualDownloadFinal — 흐름 7단계의 현재 단계 구분에 사용
+      description: orgCode | landing | issue | credentialDownload | install — 현재 단계 구분에 사용
     - name: contractClauses
       type: array
       required: true
@@ -84,7 +84,7 @@ evaluation_principles:
     description: 고정 용어와 계약 조항의 뜻을 유지
     weight: 0.8
   - name: 범위 준수
-    description: 고정한 흐름 순서 유지. 기기별 저장 안내·만료 전용 화면을 만들지 않고, 만료는 발급 화면 안의 재발급 필요 안내와 재발급 버튼으로 처리
+    description: 고정한 화면 구성 유지. 기기별 저장 안내·만료 전용 화면·재발급 버튼을 만들지 않음
     weight: 0.7
 exit_conditions:
   - name: 기획 문서 승인
@@ -92,17 +92,17 @@ exit_conditions:
     criteria: 화면 흐름·문구·mock 가정값 초안에 사용자 승인 기록이 있음. 익명성 설명 문구가 계약 5개 조항의 뜻을 넘어서 약속하지 않는지 확인을 포함
   - name: 산출물 완성
     description: mock 동작 프론트엔드와 API 계약 문서 완성
-    criteria: 흐름 7단계 화면 구현 + 계약 문서 산출
+    criteria: /verify와 /welcome 7섹션 구현 + 계약 문서 산출
   - name: 웹 완료 기준 도달
-    description: 이용자가 기관코드 확인→계정 발급→다운로드 버튼→앱 스토어 이동까지 안내받고, 만료 시 같은 화면에서 계정을 재발급받을 수 있음
+    description: 이용자가 기관코드 확인→계정 발급→다운로드 버튼→앱 스토어 이동까지 안내받음
     criteria: 앱 로그인 성공은 웹 기준에서 제외
   - name: 미확정 항목 위임
-    description: API 구성과 에러 코드 이름·개수는 계약 문서에 가정으로 표기해 백엔드 협의로 넘김. 그 밖의 사항(QR 파라미터 키 orgCode, 암복호화 없음, 대소문자 구분 안 함, TTL은 발급 시점부터 계산, 재발급은 이전 계정과 무관·횟수 제한 없음, 아이디·비밀번호 형식, 에러 응답 형식, mock 규칙)은 확정으로 표기
-    criteria: docs/API_계약.md에 확정·가정 구분이 명시됨
+    description: API 구성과 에러 코드 이름·개수는 계약 문서에 가정으로 표기해 백엔드 협의로 넘김. 그 밖의 사항(QR 파라미터 키 orgCode, 암복호화 없음, 대소문자 구분 안 함, TTL은 발급 시점부터 계산, 새 계정 발급은 이전 계정과 무관·횟수 제한 없음, 아이디·비밀번호 형식, 에러 응답 형식, mock 규칙)은 확정으로 표기
+    criteria: docs/30_API_계약.md에 확정·가정 구분이 명시됨
 metadata:
   seed_id: seed_349cda007c42
   version: 1.0.0
-  revision: 6
+  revision: 7
   created_at: '2026-09-13T08:31:23.874492Z'
   ambiguity_score: 0.121
   interview_id: interview_20260913_074649
@@ -110,4 +110,4 @@ metadata:
   qa_score_revision: 1
   accepted_below_threshold: true
   accepted_by_user: true
-  source_document: docs/52_안내웹사이트_인계.md
+  source_document: docs/10_안내웹사이트_인계.md

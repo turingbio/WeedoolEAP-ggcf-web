@@ -1,4 +1,4 @@
-export const appFlowContent = {
+export const processContent = {
   title: '이제 마음 관리를 시작해 보세요',
   captureAlt: '앱 화면',
   steps: [

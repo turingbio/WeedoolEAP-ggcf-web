@@ -1,0 +1,178 @@
+# WeeDool EAP 웹사이트 — 공용 디자인 토큰
+# 모든 DESIGN*.md 버전이 이 파일을 참조한다. 값을 바꿀 때는 여기만 고치고,
+# 각 문서는 구조·서술·컴포넌트 배치만 갖는다.
+# 출처: Colors.md(앱 팔레트), 앱 타이포그래피 스케일, 사용자 지정 그라데이션 2종.
+
+meta:
+  brand: WeeDool EAP
+  font-file: PretendardVariable.woff2
+  font-stack: "'Pretendard Variable', -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif"
+  weights: [400, 600, 700]
+  target: 모바일 우선 반응형 랜딩페이지 (단일 흐름)
+
+colors:
+  # 실행 (Primary 600/700)
+  brand: "#0066FF"            # 흰 배경 4.83:1 — CTA, 링크, 포커스
+  brand-strong: "#0052CC"     # 6.82:1 — 눌림, 밝은 청색 위 글자
+  brand-surface: "#E5EFFF"    # Primary 50
+  # 제목 강조 (24px+ Bold 전용)
+  heading-accent: "#007DFB"   # 3.94:1 — 버튼/본문/링크 금지
+  # 활자
+  ink: "#171719"              # 17.90:1
+  muted: "#636786"            # 5.50:1 (surface 위 5.14)
+  placeholder: "#70737C"      # 4.74:1
+  on-brand: "#FFFFFF"
+  # 표면
+  canvas: "#FFFFFF"
+  surface: "#F7F7F8"
+  surface-dark: "#171719"
+  # 선
+  line: "#E1E2E4"             # 1.30:1 — 장식 전용
+  line-control: "#878A93"     # 3.45:1 — 입력창 등 조작 요소
+  # 의미
+  danger: "#C20A0A"           # 6.28:1  (앱 #F64C4C 3.47:1은 웹 본문 금지)
+  warning: "#7A5700"          # #FEF7E6 위 6.16:1
+  warning-surface: "#FEF7E6"
+  success: "#0B8E78"          # 글리프 전용
+  disabled-bg: "#F1F4FF"
+  disabled-ink: "#999CA5"     # 2.50:1 — 반드시 문구 동반
+  # 파스텔 블록 (앱 팔레트 50단계)
+  block-sky: "#E5EFFF"        # Primary 50
+  block-mint: "#EBFAF7"       # Caribbean Green 50
+  block-lilac: "#ECE9FB"      # Majorelle Blue 50
+  block-cream: "#FEF7E6"      # Selective Yellow 50
+  block-paper: "#F7F7F8"
+  # 채도 높은 카드 (흰 글자용, 대비 검증 완료)
+  vivid-blue: "#0066FF"       # white 4.83
+  vivid-teal: "#145247"       # white 9.02
+  vivid-violet: "#361FAD"     # white 10.73
+  vivid-ink: "#171719"        # white 17.9
+
+gradients:
+  heading: "linear-gradient(115deg, #0695E4 13.67%, #6AF9B9 93.64%)"
+  hero: "linear-gradient(180deg, #92FDF0 0%, #86E0F8 7.21%, #84C7FF 40.38%, #AFD8FD 63.68%, #F5F9FF 100%)"
+  hero-stops:
+    top: "#92FDF0"
+    mid: "#84C7FF"
+    low: "#AFD8FD"
+    bottom: "#F5F9FF"
+
+typography:
+  # 웹 기준: 본문 18px 하한. 15px은 캡션·오류 문구·푸터만.
+  # 앱 대응은 괄호 안.
+  hero-desktop:   { size: 44px, weight: 700, line: 1.25, tracking: -0.88px }   # Headline 1
+  hero-mobile:    { size: 32px, weight: 700, line: 1.30, tracking: -0.64px }
+  title-desktop:  { size: 28px, weight: 700, line: 1.35, tracking: -0.28px }   # Headline 2
+  title-mobile:   { size: 24px, weight: 700, line: 1.35, tracking: -0.24px }   # Title 1
+  subtitle-desktop: { size: 22px, weight: 600, line: 1.50, tracking: 0 }       # Title 2
+  subtitle-mobile:  { size: 20px, weight: 600, line: 1.50, tracking: 0 }       # Title 3
+  body:           { size: 18px, weight: 400, line: 1.60, tracking: 0 }         # Title 4
+  body-strong:    { size: 18px, weight: 600, line: 1.60, tracking: 0 }
+  button:         { size: 20px, weight: 600, line: 1.20, tracking: 0 }         # Title 3
+  credential:     { size: 24px, weight: 700, line: 1.40, tracking: 0.48px, feature: tnum }
+  credential-lg:  { size: 28px, weight: 700, line: 1.35, tracking: 0.56px, feature: tnum }
+  caption:        { size: 15px, weight: 400, line: 1.60, tracking: 0 }         # Body 2
+  caption-strong: { size: 15px, weight: 600, line: 1.60, tracking: 0 }
+
+rules-typography:
+  - 본문 18px 하한. 15px은 캡션·오류 문구·푸터 세 곳만.
+  - 굵기는 400 / 600 / 700 세 단계. 500·800 없음.
+  - 음수 자간은 24px 이상에서만, -0.02em을 넘기지 않는다(한글 받침).
+  - 양수 자간은 계정 값에만(받아적는 값이라는 신호).
+  - 제목 `word-break: keep-all; text-wrap: balance;` / 본문 `text-wrap: pretty;`
+  - 숫자에 tabular-nums — 아이디·비밀번호·만료 시각·기관코드.
+
+rounded:
+  xs: 4px       # 인라인 태그
+  sm: 12px      # 버튼, 입력창, QR 판, 복사 버튼
+  logo: 16px
+  lg: 20px      # 카드, 계정 상자, 이미지
+  xl: 28px      # 시그니처/색면 블록
+  full: 9999px
+
+spacing:
+  xs: 4px
+  sm: 8px
+  md: 12px
+  base: 16px
+  lg: 20px
+  xl: 24px
+  xxl: 32px
+  huge: 48px
+  section: 64px
+  section-desktop: 80px
+
+layout:
+  content-max: 576px
+  hero-max: 960px
+  gutter-mobile: 20px
+  control-height: 56px      # 하한, 예외 없음
+  icon-button: 48px
+  breakpoint: 768px
+
+elevation:
+  card: "0 2px 12px rgba(23,23,25,0.06)"
+  mockup: "0 8px 28px rgba(23,23,25,0.10)"
+  scrim: "rgba(23,23,25,0.55)"
+  focus: "outline: 2px solid #0066FF; outline-offset: 2px"
+
+motion:
+  button: "background-color .12s"
+  note: 그 외 전환 미정. 추가 시 prefers-reduced-motion 분기 필수.
+
+contrast-ledger:   # WCAG AA, 계산값
+  ink/canvas: 17.90
+  ink/surface: 16.72
+  ink/block-sky: 15.45
+  ink/hero-mid: 9.88
+  brand/canvas: 4.83
+  on-brand/brand: 4.83
+  on-brand/brand-strong: 6.82
+  brand-strong/brand-surface: 5.89
+  muted/canvas: 5.50
+  muted/surface: 5.14
+  placeholder/canvas: 4.74
+  danger/canvas: 6.28
+  warning/warning-surface: 6.16
+  line-control/canvas: 3.45      # 비텍스트 3:1 충족
+  heading-accent/canvas: 3.94    # 24px+ Bold 전용
+  line/canvas: 1.30              # 장식 전용
+  muted/hero-mid: 3.04           # 금지
+  brand/hero-mid: 2.67           # 금지
+  gradient-end/canvas: 1.32      # 장식 전용
+
+rules-color:
+  - 히어로/그라데이션 표면 위 글자는 ink만. muted·brand·흰 글자 금지.
+  - heading-accent(#007DFB)는 24px 이상 Bold 제목의 강조 구절 전용. 버튼 색 아님.
+  - h1 그라데이션은 32px+ Bold, 강조 구절 하나에만, 그 구절이 정보를 단독 전달하지 않게.
+  - 입력창 테두리는 line-control. line(#E1E2E4)은 장식 전용.
+  - 새 색이 필요하면 Colors.md의 50/600/700/800 단계에서 먼저 찾는다.
+  - 상태는 색과 문구를 함께. 색만으로 오류·완료·만료를 알리지 않는다.
+
+assets:
+  have:
+    - { file: weedool-eap-logo.png, spec: "744×128 (5.8:1) 투명 PNG" }
+    - { file: logo-icon.png, spec: "128×128 투명 PNG" }
+    - { file: "banner_2868×1320px.jpg", spec: "2868×1320 (2.17:1)" }
+    - { file: "tone-and-mood.jpg / tone-and-mood2.jpg", spec: "약 1:2 세로 앱 스크린" }
+    - { file: "character/ (emotion·posture·mini·reward)", spec: "정사각 투명 PNG" }
+    - { file: PretendardVariable.woff2, spec: "가변 400–700" }
+  needed:
+    - { file: 앱 스토어 QR 2종, spec: "정사각 480px 이상" }
+    - { file: 스토어 공식 배지, spec: "App Store / Google Play 공식 규격" }
+    - { file: 파비콘 / OG 이미지, spec: "512×512 / 1200×630 (아이콘·배너에서 파생 가능)" }
+    - { file: 기관 매뉴얼 PDF, spec: "—" }
+
+account-png-export:
+  size: "가로 360px × 2배 해상도(720px), 세로 가변"
+  corners: 직각
+  order: [가로형 로고 160px, "발급된 계정", 아이디, 비밀번호, 만료 시각, "스토어 QR 2개(가로 2열)", "타인과 공유하지 마세요"]
+  padding: { outer: 24px, block-gap: 20px }
+  border: "1px #E1E2E4 (이미지 안쪽)"
+  note: 화면과 같은 타입 토큰 사용. 스크린샷이 아니라 캔버스 직접 렌더링, 폰트 로드 후 그린다.
+
+open-questions:
+  - 오류 케이스별 문구(없는 코드 / 만료된 코드 / 사용량 초과) 미확정.
+  - 모션 정책 미정(prefers-reduced-motion 분기 전제).
+  - 다국어 미검토 — 한국어 기준 자간·줄바꿈만 정의.
+  - 다크 모드 없음.
