@@ -4,7 +4,7 @@ import { anonymityContent } from './content';
 
 export function AnonymitySection({ id }: SectionProps) {
   return (
-    <SectionWrapper id={id} title={anonymityContent.title}>
+    <SectionWrapper id={id} label={anonymityContent.label} title={anonymityContent.title}>
       {anonymityContent.paragraphs.map((paragraph) => (
         <p key={paragraph} className="mb-2">
           {paragraph}

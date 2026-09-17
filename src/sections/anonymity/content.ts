@@ -1,4 +1,5 @@
 export const anonymityContent = {
+  label: '익명 보장',
   title: '🔒누군가에게 알려질 걱정 없이, 나에게만 집중하세요',
   paragraphs: [
     '이름, 부서, 연락처 없이 완전 익명의 계정으로 진행되므로, 소속 기관은 물론 운영사조차 유저 정보를 알 수 없어요.',

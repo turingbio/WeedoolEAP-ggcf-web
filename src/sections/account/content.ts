@@ -1,6 +1,6 @@
 export const accountContent = {
-  title: '앱에서 사용할 계정을 받아 보세요',
-  body: '이름이나 연락처 없이 바로 발급받을 수 있어요',
+  title: '먼저 계정을 발급 받아 주세요',
+  body: '이름이나 연락처 같은 개인정보가 필요하지 않아요',
   issueButton: '계정 발급받기',
   loadingButton: '계정을 생성하고 있어요',
   loginUntil: (time: string) => `${time} 전까지 앱에서 로그인을 완료해 주세요.`,
