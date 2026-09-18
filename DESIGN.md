@@ -220,15 +220,15 @@ Hero의 두 스토어 버튼은 같은 중요도의 secondary를 쓴다. 계정 
 
 ### 5-1. 모서리 반경
 
-| 이름 | 값     | 쓰임                            |
-| ---- | ------ | ------------------------------- |
-| none | 0      | 표 행, 구분선                   |
-| xs   | 4px    | 작은 배지                       |
-| sm   | 6px    | 태그                            |
-| md   | 8px    | 앱 캡처 이미지                  |
-| ml   | 12px   | 기관코드 입력칸의 칸 하나       |
-| lg   | 16px   | 카드, 계정 정보 카드, QR 상자   |
-| full | 9999px | 모든 버튼                       |
+| 이름 | 값     | 쓰임                          |
+| ---- | ------ | ----------------------------- |
+| none | 0      | 표 행, 구분선                 |
+| xs   | 4px    | 작은 배지                     |
+| sm   | 6px    | 태그                          |
+| md   | 8px    | 앱 캡처 이미지                |
+| ml   | 12px   | 기관코드 입력칸의 칸 하나     |
+| lg   | 16px   | 카드, 계정 정보 카드, QR 상자 |
+| full | 9999px | 모든 버튼                     |
 
 ### 5-2. 그림자
 
@@ -270,12 +270,12 @@ Hero의 두 스토어 버튼은 같은 중요도의 secondary를 쓴다. 계정 
 
 구현은 투명한 `input` 하나를 여섯 칸 위에 덮는 방식이다. 칸마다 `input`을 두지 않는다. 붙여넣기, 백스페이스, 한글 입력기 전환, 자동완성이 브라우저 기본 동작으로 남는다. 보조 기술에는 지금처럼 필드 하나로 읽힌다.
 
-| 칸 상태  | 배경      | 테두리              | 비고                    |
-| -------- | --------- | ------------------- | ----------------------- |
-| 빈 칸    | `#F7F7F8` | 1px `#878A93`       | 흰 바탕과 3.45:1        |
-| 채운 칸  | `#FFFFFF` | 1.5px `#0066FF`     |                         |
-| 지금 칸  | `#FFFFFF` | 2px `#0079FF`       | 바깥에 3px `#CCE0FF` 링 |
-| 오류     | `#FFFFFF` | 2px `#C20A0A`       | 여섯 칸 모두            |
+| 칸 상태 | 배경      | 테두리          | 비고                    |
+| ------- | --------- | --------------- | ----------------------- |
+| 빈 칸   | `#F7F7F8` | 1px `#878A93`   | 흰 바탕과 3.45:1        |
+| 채운 칸 | `#FFFFFF` | 1.5px `#0066FF` |                         |
+| 지금 칸 | `#FFFFFF` | 2px `#0079FF`   | 바깥에 3px `#CCE0FF` 링 |
+| 오류    | `#FFFFFF` | 2px `#C20A0A`   | 여섯 칸 모두            |
 
 - 칸 하나는 48×56px, 칸 사이 8px, 반경 12px
 - 칸 안 글자는 등폭 24px 700, 가운데 정렬. 자간을 벌리지 않는다
@@ -416,7 +416,23 @@ Hero의 두 스토어 버튼은 같은 중요도의 secondary를 쓴다. 계정 
 | 화면 문구        | `src/sections/*/content.ts`, `src/content/common.ts` |
 | 주소·링크        | `src/config/links.ts`                                |
 
-의미별 색은 `globals.css`의 `@theme inline`에서 원본 변수를 참조하는 별칭으로 연결했다. `brand → --primary-heavy`, `brand-strong → --palette-primary-700`, `brand-soft → --background-elevated`, `ink → --label-secondary`, `muted → --label-primary`, `line → --line-normal`, `control-border → --cool-neutral-80`, `surface → --background-alternative`, `danger → --palette-error-700`을 사용한다.
+의미별 색은 `globals.css`의 `@theme inline`에서 원본 변수를 참조하는 별칭으로 연결했다.
+
+| 별칭             | 원본 변수                  | 값        | 쓰임                          |
+| ---------------- | -------------------------- | --------- | ----------------------------- |
+| `brand-bright`   | `--primary-strong`         | `#0079FF` | primary 버튼 배경             |
+| `brand`          | `--primary-heavy`          | `#0066FF` | 링크, 라벨, 포커스, 버튼 호버 |
+| `brand-strong`   | `--palette-primary-700`    | `#0052CC` | 버튼 눌림, 진한 강조 글자     |
+| `brand-tint`     | `--palette-primary-50`     | `#E5EFFF` | secondary·ghost 버튼 호버 면  |
+| `brand-soft`     | `--background-elevated`    | `#EDF3FA` | 계정 발급 섹션 바탕           |
+| `ink`            | `--label-secondary`        | `#1D1F27` | 본문 글자                     |
+| `muted`          | `--label-primary`          | `#5A5C63` | 보조 글자                     |
+| `line`           | `--line-normal`            | 반투명    | 카드·구역 장식선              |
+| `control-border` | `--cool-neutral-70`        | `#878A93` | 입력칸 경계                   |
+| `surface`        | `--background-alternative` | `#F8F8FA` | 대체 바탕                     |
+| `danger`         | `--palette-error-700`      | `#C20A0A` | 오류 글자·경계                |
+
+버튼 배경만 별칭을 따로 둔 이유는 `brand`가 글자에도 쓰이기 때문이다. `brand`를 `#0079FF`로 바꾸면 secondary 버튼 글자가 4.05:1이 되어 본문 기준에 미달한다.
 
 ---
 

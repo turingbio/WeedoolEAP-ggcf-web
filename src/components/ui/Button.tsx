@@ -1,15 +1,16 @@
 import type { ComponentProps } from 'react';
 
-type Variant = 'primary' | 'secondary';
+type Variant = 'primary' | 'secondary' | 'ghost';
 
 const baseClass =
-  'inline-flex min-h-touch w-full items-center justify-center rounded-xl px-6 text-button font-bold ' +
+  'inline-flex min-h-touch w-full items-center justify-center rounded-full px-6 py-3 text-center text-title-3 font-bold transition-colors duration-200 md:w-auto ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ' +
-  'disabled:cursor-not-allowed disabled:opacity-50';
+  'disabled:cursor-not-allowed disabled:border-transparent disabled:bg-disabled disabled:text-inactive';
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'bg-brand text-white active:bg-brand-strong',
-  secondary: 'border-2 border-brand bg-white text-brand',
+  primary: 'bg-brand-bright text-white hover:bg-brand active:bg-brand-strong',
+  secondary: 'border border-brand bg-white text-brand hover:bg-brand-tint active:bg-brand-tint',
+  ghost: 'border border-line bg-transparent text-ink hover:bg-brand-tint active:bg-brand-tint',
 };
 
 function buttonClassName(variant: Variant, className?: string) {

@@ -2,24 +2,30 @@
 @import './palette.css';
 @import './typography.css';
 
-/* TODO: 임시 디자인 토큰 설정 */
-@theme {
+/* DESIGN.md — 디자인 v1 */
+@theme inline {
   /* 색상 */
-  --color-brand: #2563eb;
-  --color-brand-strong: #1d4ed8;
-  --color-ink: #111827;
-  --color-muted: #4b5563;
-  --color-line: #e5e7eb;
-  --color-surface: #f9fafb;
-  --color-danger: #b91c1c;
+  --color-brand: var(--primary-heavy);
+  --color-brand-bright: var(--primary-strong);
+  --color-brand-strong: var(--palette-primary-700);
+  --color-brand-soft: var(--background-elevated);
+  --color-brand-tint: var(--palette-primary-50);
+  --color-ink: var(--label-secondary);
+  --color-muted: var(--label-primary);
+  --color-line: var(--line-normal);
+  --color-control-border: var(--cool-neutral-70);
+  --color-surface: var(--background-alternative);
+  --color-danger: var(--palette-error-700);
+  --color-disabled: var(--interaction-disable);
+  --color-inactive: var(--interaction-inactive);
 
   /* 폰트 */
   --font-sans:
     var(--font-app), system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
 
   /* 타이포그래피 (접근성 기준: 본문 16px 이상, 버튼 20px 이상) */
-  --text-body: 1.125rem;
-  --text-body--line-height: 1.7;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5;
   --text-button: 1.25rem;
   --text-title: 1.75rem;
   --text-title--line-height: 1.35;
@@ -33,5 +39,62 @@ html {
 }
 
 body {
-  word-break: keep-all; /* 한국어 단어 중간 개행 방지 */
+  font-family: var(--font-sans);
+  color: var(--label-secondary);
+  background: var(--background-normal);
+  font-size: 1rem;
+  line-height: 1.5;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+@layer components {
+  .site-container {
+    width: min(calc(100% - 40px), 1280px);
+    margin-inline: auto;
+  }
+
+  .section-shell {
+    padding-block: 64px;
+  }
+
+  .section-heading {
+    max-width: 720px;
+    margin-inline: auto;
+    margin-bottom: 32px;
+  }
+
+  .eyebrow {
+    margin-bottom: 8px;
+    color: var(--primary-heavy);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+  }
+
+  @media (min-width: 768px) {
+    .section-heading {
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .site-container {
+      width: min(calc(100% - 96px), 1280px);
+    }
+
+    .section-shell {
+      padding-block: 96px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
