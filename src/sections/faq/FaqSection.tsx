@@ -4,7 +4,7 @@ import { faqContent } from './content';
 
 export function FaqSection({ id }: SectionProps) {
   return (
-    <SectionWrapper id={id} title={faqContent.title}>
+    <SectionWrapper id={id} label={faqContent.label} title={faqContent.title}>
       <div className="flex flex-col gap-3">
         {faqContent.items.map((item) => (
           <details key={item.question} className="group rounded-xl bg-white px-5">

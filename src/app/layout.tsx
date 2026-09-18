@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
+import { commonContent } from '@/content/common';
 import { FlowProvider } from '@/features/flow/FlowProvider';
 
 const pretendardVariable = localFont({
@@ -10,8 +11,8 @@ const pretendardVariable = localFont({
 });
 
 export const metadata: Metadata = {
-  title: '위둘 EAP',
-  description: '위둘 EAP 안내',
+  title: commonContent.meta.title,
+  description: commonContent.meta.description,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

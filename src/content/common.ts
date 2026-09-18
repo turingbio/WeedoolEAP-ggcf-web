@@ -1,5 +1,9 @@
 export const commonContent = {
   brandName: 'Weedool EAP',
+  meta: {
+    title: '위둘 EAP',
+    description: '위둘 EAP 안내',
+  },
   errors: {
     invalidOrgCode: '기관코드를 다시 확인해 주세요',
     network: '잠시 후 다시 시도해 주세요',

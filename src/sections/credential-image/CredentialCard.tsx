@@ -40,7 +40,7 @@ export const CredentialCard = forwardRef<HTMLDivElement, CredentialCardProps>(
             <figure key={qr.label} className="flex flex-col items-center gap-2">
               {/* PNG 변환에 확실히 포함되도록 next/image 대신 일반 img를 쓴다 */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={qr.src} alt={`${qr.label} 설치 QR`} width={120} height={120} />
+              <img src={qr.src} alt={content.qrAlt(qr.label)} width={120} height={120} />
               <figcaption className="text-muted">{qr.label}</figcaption>
             </figure>
           ))}

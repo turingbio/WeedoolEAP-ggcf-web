@@ -1,5 +1,6 @@
 export const accountContent = {
-  title: '먼저 계정을 발급 받아 주세요',
+  label: '계정 발급',
+  title: '먼저 계정을 생성해 주세요',
   body: '이름이나 연락처 같은 개인정보가 필요하지 않아요',
   issueButton: '계정 발급받기',
   loadingButton: '계정을 생성하고 있어요',

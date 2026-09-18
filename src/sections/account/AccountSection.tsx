@@ -32,7 +32,7 @@ export function AccountSection({ id }: SectionProps) {
   }
 
   return (
-    <SectionWrapper id={id} title={accountContent.title}>
+    <SectionWrapper id={id} label={accountContent.label} title={accountContent.title}>
       <p className="-mt-4 mb-6 text-muted">{accountContent.body}</p>
 
       {orgCode && account ? (

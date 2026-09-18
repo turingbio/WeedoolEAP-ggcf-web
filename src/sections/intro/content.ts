@@ -10,9 +10,9 @@ export const introContent = {
       description: '언제든 편하게 마음을 꺼내 놓아요',
     },
     {
-      label: '정서 통합 문진',
+      label: '자가진단',
       title: '나의 마음 상태를 점검해요',
-      description: '우울·불안·직무 스트레스 등 스스로 점검하고 인지해요',
+      description: '우울·불안·직무 스트레스·주의력 결핍 등 스스로 점검하고 인지해요',
     },
     {
       label: '일상 행동 활성화(BA)',
