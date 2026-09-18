@@ -95,7 +95,7 @@
         --ink: var(--label-secondary);
         --muted: var(--label-primary);
         --line: var(--line-normal);
-        --control-border: var(--cool-neutral-80);
+        --control-border: var(--cool-neutral-70);
         --surface: var(--background-alternative);
         --danger: var(--palette-error-700);
 
@@ -306,7 +306,7 @@
         border-radius: 9999px;
         font-size: 20px;
         line-height: 1.5;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: -0.02em;
         border: 1px solid transparent;
         cursor: pointer;
@@ -314,11 +314,15 @@
       }
 
       .btn-primary {
-        background: var(--brand);
+        background: var(--primary-strong);
         color: #fff;
       }
 
       .btn-primary:hover {
+        background: var(--brand);
+      }
+
+      .btn-primary:active {
         background: var(--brand-strong);
       }
 
@@ -329,7 +333,7 @@
       }
 
       .btn-secondary:hover {
-        background: var(--surface);
+        background: var(--palette-primary-50);
       }
 
       .btn-ghost {
@@ -362,39 +366,58 @@
         margin-bottom: 16px;
       }
 
-      .field {
-        max-width: 400px;
-      }
-
-      .field label {
-        display: block;
+      .field .label-text {
+        margin: 0 0 12px;
         font-size: 18px;
         line-height: 26px;
         font-weight: 500;
-        margin-bottom: 12px;
       }
 
-      .field input {
-        width: 100%;
-        min-height: 56px;
-        border-radius: 8px;
-        border: 2px solid var(--control-border);
-        background: #fff;
-        text-align: center;
+      .code {
+        display: flex;
+        gap: 8px;
+      }
+
+      .code i {
+        width: 48px;
+        height: 56px;
+        border-radius: 12px;
+        background: var(--cool-neutral-1);
+        border: 1px solid var(--cool-neutral-70);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-family: ui-monospace, 'Consolas', monospace;
         font-size: 24px;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
+        font-weight: 700;
+        font-style: normal;
         color: var(--ink);
       }
 
-      .field input:focus {
-        outline: none;
-        border-color: var(--brand);
+      .code i.filled {
+        background: #fff;
+        border: 1.5px solid var(--brand);
       }
 
-      .field.is-error input {
-        border-color: var(--danger);
+      .code i.current {
+        background: #fff;
+        border: 2px solid var(--primary-strong);
+        box-shadow: 0 0 0 3px var(--palette-primary-100);
+      }
+
+      .field.is-error .code i {
+        border: 2px solid var(--danger);
+        background: #fff;
+      }
+
+      @media (max-width: 400px) {
+        .code {
+          gap: 6px;
+        }
+
+        .code i {
+          width: 44px;
+        }
       }
 
       .field .msg {
@@ -641,6 +664,23 @@
           <tbody></tbody>
         </table>
 
+        <h3>파랑 램프 운용</h3>
+        <p class="lead">
+          파랑을 한 단계만 쓰지 않습니다. 열 단계를 밝기 순서대로 나눠 맡깁니다. 400 이하는 면과
+          도형 전용이고, 글자에는 600 이상만 씁니다.
+        </p>
+        <table id="ramp-role-table">
+          <thead>
+            <tr>
+              <th>단계</th>
+              <th>견본</th>
+              <th>맡는 일</th>
+              <th>흰 바탕 대비</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
         <h3>앱 팔레트 램프</h3>
         <div id="ramps"></div>
       </section>
@@ -707,27 +747,34 @@
           <button class="btn btn-primary">계정을 생성하고 있어요</button>
         </div>
         <p class="lead">
-          높이 48px 이상, 글자 20px 600, 반경 full. 누르는 동안 크기와 위치를 바꾸지 않고 색만
+          높이 48px 이상, 글자 20px 700, 반경 full. 누르는 동안 크기와 위치를 바꾸지 않고 색만
           바뀝니다. 진행 중에는 스피너 대신 문구를 바꿉니다.
         </p>
 
         <h3>입력칸 (기관코드)</h3>
         <div class="row" style="align-items: flex-start">
           <div class="field">
-            <label for="f1">기관코드를 입력해 주세요</label>
-            <input id="f1" value="" />
+            <p class="label-text">기관코드를 입력해 주세요</p>
+            <div class="code" aria-hidden="true">
+              <i class="filled">A</i><i class="filled">1</i><i class="filled">B</i
+              ><i class="current">2</i><i></i><i></i>
+            </div>
             <p class="msg"></p>
           </div>
           <div class="field is-error">
-            <label for="f2">기관코드를 입력해 주세요</label>
-            <input id="f2" value="" />
+            <p class="label-text">기관코드를 입력해 주세요</p>
+            <div class="code" aria-hidden="true">
+              <i>A</i><i>1</i><i>B</i><i>2</i><i>C</i><i>4</i>
+            </div>
             <p class="msg">기관코드를 다시 확인해 주세요</p>
           </div>
         </div>
         <p class="lead">
-          경계선은 불투명한 <code>--cool-neutral-80</code>을 씁니다. 반투명
-          <code>--line-normal</code>은 흰 바탕에서 약 1.32:1이라 입력칸을 알아보는 유일한 단서로 쓸
-          수 없습니다. placeholder는 두지 않고, 오류 문구 자리는 평소에도 비워 둡니다.
+          칸 48×56, 간격 8px, 반경 12px. 빈 칸은 <code>--cool-neutral-1</code> 바탕에 1px
+          <code>--cool-neutral-70</code> 경계(흰 바탕과 3.45:1), 채운 칸은 흰 바탕에 1.5px
+          <code>#0066FF</code>, 지금 칸은 2px <code>#0079FF</code>에 바깥 3px
+          <code>#CCE0FF</code> 링입니다. 여섯 칸은 보이는 장식이고 조작 대상은 그 위에 덮은 투명
+          <code>input</code> 하나라서, 붙여넣기와 키보드 동작이 그대로 남습니다.
         </p>
 
         <h3>카드</h3>
@@ -914,11 +961,12 @@
       const semantic = [
         ['본문 글자', '--label-secondary', 'ink'],
         ['보조 글자', '--label-primary', 'muted'],
-        ['주색', '--primary-heavy', 'brand'],
+        ['버튼 배경', '--primary-strong', 'primary-strong'],
+        ['링크·라벨', '--primary-heavy', 'brand'],
         ['주색 진한 쪽', '--palette-primary-700', 'brand-strong'],
         ['주색 옅은 면', '--background-elevated', 'brand-soft', '배경'],
         ['경계선', '--line-normal', 'line'],
-        ['입력칸 경계선', '--cool-neutral-80', 'control-border'],
+        ['입력칸 경계선', '--cool-neutral-70', 'control-border'],
         ['대체 바탕', '--background-alternative', 'surface', '배경'],
         ['오류', '--palette-error-700', 'danger'],
       ];
@@ -949,6 +997,26 @@
           const value = css(token);
           const ratio = contrast('#ffffff', value);
           return `<tr><td>${name}</td><td><span class="chip" style="background:${value}"></span></td><td><code>${value}</code></td><td>${ratio.toFixed(2)}:1</td><td>${verdict(ratio, 4.5)}</td></tr>`;
+        })
+        .join('');
+
+      const rampRoles = [
+        [50, '넓은 면, 계정 발급 섹션 바탕'],
+        [100, '강조 배지 바탕, 포커스 바깥 링'],
+        [200, '밝은 면 위의 구분선, 비활성 도형'],
+        [400, '아이콘, 장식 도형'],
+        [500, '보조 아이콘, 진행 막대 채움'],
+        [600, '링크, 카드 라벨, secondary 버튼'],
+        [700, 'primary 버튼 눌림, 진한 강조 글자'],
+        [800, '밝은 파랑 면 위의 제목'],
+      ];
+
+      document.querySelector('#ramp-role-table tbody').innerHTML = rampRoles
+        .map(([step, role]) => {
+          const value = css(`--palette-primary-${step}`);
+          const ratio = contrast(value, '#ffffff');
+          const forText = ratio >= 4.5;
+          return `<tr><td>${step}</td><td><span class="chip" style="background:${value}"></span> <code>${value}</code></td><td>${role}</td><td>${ratio.toFixed(2)}:1 <span style="color:var(--muted);font-size:12px">${forText ? '글자 가능' : '면·도형 전용'}</span></td></tr>`;
         })
         .join('');
 
@@ -1031,9 +1099,16 @@
         ['본문 글자 / 흰 바탕', '--label-secondary', '#ffffff', 4.5, ''],
         ['보조 글자 / 흰 바탕', '--label-primary', '#ffffff', 4.5, ''],
         ['보조 글자 / 대체 바탕', '--label-primary', '#f8f8fa', 4.5, ''],
-        ['흰 글자 / 주색', '#ffffff', '--primary-heavy', 4.5, ''],
+        [
+          '흰 글자 / 버튼 배경',
+          '#ffffff',
+          '--primary-strong',
+          3,
+          '버튼 글자는 20px 700이라 큰 글자 기준 3:1을 받는다',
+        ],
+        ['흰 글자 / 링크색', '#ffffff', '--primary-heavy', 4.5, ''],
         ['오류 글자 / 흰 바탕', '--palette-error-700', '#ffffff', 4.5, ''],
-        ['입력칸 경계선 / 흰 바탕', '--cool-neutral-80', '#ffffff', 3, ''],
+        ['입력칸 경계선 / 흰 바탕', '--cool-neutral-70', '#ffffff', 3, ''],
         [
           '장식 실선 / 흰 바탕',
           '--line-normal',
