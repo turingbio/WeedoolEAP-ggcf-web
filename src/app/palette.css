@@ -1,0 +1,177 @@
+/* 근거: docs/40_디자인_자산/41_앱_색상.md (위둘 앱 색상) */
+
+:root {
+  /* Neutral — Cool Neutral */
+  --cool-neutral-1: #f7f7f8;
+  --cool-neutral-5: #f4f4f5;
+  --cool-neutral-10: #eaebec;
+  --cool-neutral-20: #e1e2e4;
+  --cool-neutral-30: #dbdcdf;
+  --cool-neutral-40: #c2c4c8;
+  --cool-neutral-50: #aeb0b6;
+  --cool-neutral-60: #989ba2;
+  --cool-neutral-70: #878a93;
+  --cool-neutral-80: #70737c;
+  --cool-neutral-90: #5a5c63;
+  --cool-neutral-100: #46474c;
+  --cool-neutral-200: #37383c;
+  --cool-neutral-300: #333438;
+  --cool-neutral-400: #2e2f33;
+  --cool-neutral-500: #292a2d;
+  --cool-neutral-600: #212225;
+  --cool-neutral-800: #171719;
+
+  /* Semantic — Static */
+  --static-black: #000000;
+  --static-white: #ffffff;
+
+  /* Semantic — Label */
+  --label-secondary: #1d1f27;
+  --label-primary: #5a5c63;
+  --label-tertiary: #878a93;
+  --label-strong: #000000;
+  --label-disable: #dfdfe0;
+  --label-assistive: #aeb0b6;
+
+  /* Semantic — Primary */
+  --primary-light: #4c94ff;
+  --primary-normal: #008eff;
+  --primary-strong: #0079ff;
+  --primary-heavy: #0066ff;
+
+  /* Semantic — Line */
+  --line-normal: #70737c38;
+  --line-alternative: #70737c14;
+  --line-neutral: #70737c29;
+
+  /* Semantic — Interaction */
+  --interaction-disable: #f1f4ff;
+  --interaction-inactive: #999ca5;
+
+  /* Semantic — Background */
+  --background-normal: #ffffff;
+  --background-alternative: #f8f8fa;
+  --background-elevated: #edf3fa;
+  --background-muted: #fafafa;
+
+  /* Semantic — Status */
+  --status-positive: #2eb8a1;
+  --status-negative: #f64c4c;
+  --status-cautionary: #ffb700;
+
+  /* Semantic — Dimmer */
+  --dimmer: #1717198c;
+
+  /* Semantic — Fill */
+  --fill-normal: #70737c14;
+  --fill-alternative: #70737c0d;
+  --fill-strong: #70737c29;
+
+  /* Palette — Primary */
+  --palette-primary-50: #e5efff;
+  --palette-primary-100: #cce0ff;
+  --palette-primary-200: #99c2ff;
+  --palette-primary-300: #7fb2ff;
+  --palette-primary-400: #4c94ff;
+  --palette-primary-500: #1a75ff;
+  --palette-primary-600: #0066ff;
+  --palette-primary-700: #0052cc;
+  --palette-primary-800: #003d99;
+  --palette-primary-900: #002966;
+
+  /* Palette — Error */
+  --palette-error-50: #fee7e7;
+  --palette-error-100: #fccfcf;
+  --palette-error-200: #fa9e9e;
+  --palette-error-300: #f98686;
+  --palette-error-400: #f98686;
+  --palette-error-500: #f64c4c;
+  --palette-error-600: #f20d0d;
+  --palette-error-700: #c20a0a;
+  --palette-error-800: #910808;
+  --palette-error-900: #610505;
+
+  /* Palette — Neutral Gray */
+  --palette-neutral-gray-50: #f9fafb;
+  --palette-neutral-gray-100: #f2f4f7;
+  --palette-neutral-gray-200: #e4e7ec;
+  --palette-neutral-gray-300: #ced2da;
+  --palette-neutral-gray-400: #97a1af;
+  --palette-neutral-gray-500: #637083;
+  --palette-neutral-gray-600: #414e62;
+  --palette-neutral-gray-700: #344051;
+  --palette-neutral-gray-800: #202b37;
+  --palette-neutral-gray-900: #141c24;
+
+  /* Palette — Grey Cold */
+  --palette-grey-cold-50: #f1f3f4;
+  --palette-grey-cold-100: #e4e7e8;
+  --palette-grey-cold-200: #c7ced1;
+  --palette-grey-cold-300: #b9c2c6;
+  --palette-grey-cold-400: #abb6bb;
+  --palette-grey-cold-500: #8f9ca3;
+  --palette-grey-cold-600: #73848c;
+  --palette-grey-cold-700: #5c6970;
+  --palette-grey-cold-800: #454f54;
+  --palette-grey-cold-900: #2e3538;
+
+  /* Palette — Caribbean Green */
+  --palette-caribbean-green-50: #ebfaf7;
+  --palette-caribbean-green-100: #d6f5f0;
+  --palette-caribbean-green-200: #adebe0;
+  --palette-caribbean-green-300: #99e6d9;
+  --palette-caribbean-green-400: #85e0d1;
+  --palette-caribbean-green-500: #33ccb2;
+  --palette-caribbean-green-600: #2eb8a1;
+  --palette-caribbean-green-700: #29a38f;
+  --palette-caribbean-green-800: #0b8e78;
+  --palette-caribbean-green-900: #145247;
+
+  /* Palette — Majorelle Blue */
+  --palette-majorelle-blue-50: #ece9fb;
+  --palette-majorelle-blue-100: #dad4f7;
+  --palette-majorelle-blue-200: #b4a8f0;
+  --palette-majorelle-blue-300: #a193ec;
+  --palette-majorelle-blue-400: #8f7de8;
+  --palette-majorelle-blue-500: #6952e0;
+  --palette-majorelle-blue-600: #4426d9;
+  --palette-majorelle-blue-700: #361fad;
+  --palette-majorelle-blue-800: #291782;
+  --palette-majorelle-blue-900: #1b0f57;
+
+  /* Palette — Red Crayola */
+  --palette-red-crayola-50: #fce8ec;
+  --palette-red-crayola-100: #f9d2d9;
+  --palette-red-crayola-200: #f4a4b3;
+  --palette-red-crayola-300: #f18ea0;
+  --palette-red-crayola-400: #ee778d;
+  --palette-red-crayola-500: #e94967;
+  --palette-red-crayola-600: #e31c41;
+  --palette-red-crayola-700: #b61634;
+  --palette-red-crayola-800: #881127;
+  --palette-red-crayola-900: #5b0b1a;
+
+  /* Palette — Mandarin Orange */
+  --palette-mandarin-orange-50: #fdede7;
+  --palette-mandarin-orange-100: #fcdccf;
+  --palette-mandarin-orange-200: #f9b99f;
+  --palette-mandarin-orange-300: #f7a787;
+  --palette-mandarin-orange-400: #f6956f;
+  --palette-mandarin-orange-500: #f3733f;
+  --palette-mandarin-orange-600: #f04f0f;
+  --palette-mandarin-orange-700: #c03f0c;
+  --palette-mandarin-orange-800: #902f09;
+  --palette-mandarin-orange-900: #602006;
+
+  /* Palette — Selective Yellow */
+  --palette-selective-yellow-50: #fef7e6;
+  --palette-selective-yellow-100: #fdf0ce;
+  --palette-selective-yellow-200: #fce19c;
+  --palette-selective-yellow-300: #fcda83;
+  --palette-selective-yellow-400: #fbd26a;
+  --palette-selective-yellow-500: #ffb700;
+  --palette-selective-yellow-600: #eba800;
+  --palette-selective-yellow-700: #cc9200;
+  --palette-selective-yellow-800: #996e00;
+  --palette-selective-yellow-900: #664900;
+}

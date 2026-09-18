@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import './palette.css';
+@import './typography.css';
 
 /* TODO: 임시 디자인 토큰 설정 */
 @theme {
