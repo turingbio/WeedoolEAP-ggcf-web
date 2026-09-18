@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>참고 디자인 시스템 — Runway 분석</title>
+    <style>
+      :root {
+        --primary: #000000;
+        --on-primary: #ffffff;
+        --ink: #030303;
+        --ink-soft: #1a1a1a;
+        --graphite: #404040;
+        --slate: #676f7b;
+        --slate-soft: #727a85;
+        --mute: #6b7280;
+        --stone: #939393;
+        --ash: #999999;
+        --hairline: #e7eaf0;
+        --hairline-soft: #c9ccd1;
+        --surface-cool: #d0d4d4;
+        --canvas: #ffffff;
+        --canvas-warm: #fefefe;
+        --scrim: #1a1a1a;
+        --footer: #030303;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0 20px 96px;
+        background: var(--canvas);
+        color: var(--ink);
+        font-family:
+          system-ui,
+          -apple-system,
+          'Helvetica Neue',
+          Arial,
+          sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+      }
+
+      header.page {
+        padding: 48px 0 32px;
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      header.page h1 {
+        margin: 0 0 12px;
+        font-size: 48px;
+        line-height: 1;
+        letter-spacing: -1.2px;
+        font-weight: 400;
+      }
+
+      header.page p {
+        margin: 0;
+        max-width: 720px;
+        color: var(--graphite);
+      }
+
+      nav.jump {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--hairline);
+        position: sticky;
+        top: 0;
+        background: var(--canvas);
+        z-index: 2;
+      }
+
+      nav.jump a {
+        padding: 6px 14px;
+        border: 1px solid var(--hairline-soft);
+        border-radius: 9999px;
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.43;
+      }
+
+      nav.jump a:hover {
+        background: var(--hairline);
+      }
+
+      section {
+        padding: 64px 0 0;
+        scroll-margin-top: 80px;
+      }
+
+      h2 {
+        margin: 0 0 8px;
+        font-size: 36px;
+        line-height: 1;
+        letter-spacing: -0.9px;
+        font-weight: 400;
+      }
+
+      h3 {
+        margin: 40px 0 12px;
+        font-size: 24px;
+        line-height: 1;
+        font-weight: 400;
+      }
+
+      .lead {
+        margin: 0 0 24px;
+        color: var(--graphite);
+        max-width: 720px;
+      }
+
+      .eyebrow {
+        font-size: 14px;
+        line-height: 1.43;
+        letter-spacing: 0.35px;
+        font-weight: 500;
+        color: var(--slate);
+        margin: 0 0 8px;
+        text-transform: uppercase;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 15px;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--hairline);
+        vertical-align: middle;
+      }
+
+      th {
+        font-weight: 600;
+        color: var(--graphite);
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      code {
+        font-family: ui-monospace, 'Consolas', monospace;
+        font-size: 13px;
+        background: var(--hairline);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+      }
+
+      .swatches figure {
+        margin: 0;
+      }
+
+      .swatches i {
+        display: block;
+        height: 72px;
+        border-radius: 8px;
+        border: 1px solid var(--hairline);
+      }
+
+      .swatches figcaption {
+        margin-top: 8px;
+        font-size: 13px;
+        line-height: 1.3;
+        letter-spacing: -0.26px;
+        color: var(--graphite);
+      }
+
+      .type-row {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 16px;
+        align-items: baseline;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      .type-row .meta {
+        font-size: 13px;
+        line-height: 1.3;
+        color: var(--graphite);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        padding: 12px 24px;
+        border-radius: 9999px;
+        font-size: 14px;
+        line-height: 1.43;
+        font-weight: 600;
+        border: 1px solid transparent;
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: var(--on-primary);
+      }
+
+      .btn-ghost {
+        background: var(--canvas);
+        color: var(--ink);
+        border-color: var(--ink);
+      }
+
+      .btn-link {
+        background: none;
+        border: 0;
+        padding: 4px;
+        border-radius: 4px;
+        color: var(--ink);
+        text-decoration: underline;
+      }
+
+      .on-dark {
+        background: var(--scrim);
+        padding: 32px;
+        border-radius: 16px;
+        margin-top: 16px;
+      }
+
+      .on-dark .btn-primary {
+        background: var(--on-primary);
+        color: var(--primary);
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .slab {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        border: 1px solid var(--hairline);
+      }
+
+      .slab div {
+        padding: 24px;
+        border-right: 1px solid var(--hairline);
+      }
+
+      .slab div:last-child {
+        border-right: 0;
+      }
+
+      .slab .featured {
+        background: var(--hairline);
+      }
+
+      .slab h4 {
+        margin: 0 0 16px;
+        font-size: 36px;
+        line-height: 1;
+        letter-spacing: -0.9px;
+        font-weight: 400;
+      }
+
+      .slab p {
+        margin: 0;
+        color: var(--graphite);
+        font-size: 16px;
+      }
+
+      .field {
+        max-width: 400px;
+      }
+
+      .field label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .field input {
+        width: 100%;
+        height: 44px;
+        border: 0;
+        border-bottom: 1px solid var(--hairline-soft);
+        background: var(--canvas);
+        font-size: 16px;
+        font-family: inherit;
+        color: var(--ink);
+        padding: 12px 0;
+      }
+
+      .field input::placeholder {
+        color: var(--stone);
+      }
+
+      .field input:focus {
+        outline: none;
+        border-bottom-color: var(--ink);
+      }
+
+      .radius-row,
+      .space-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: flex-end;
+      }
+
+      .radius-row div {
+        width: 120px;
+        height: 80px;
+        background: var(--hairline);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        color: var(--graphite);
+      }
+
+      .space-row figure {
+        margin: 0;
+        text-align: center;
+        font-size: 12px;
+        color: var(--graphite);
+      }
+
+      .space-row i {
+        display: block;
+        background: var(--ink);
+        height: 24px;
+        margin-bottom: 6px;
+      }
+
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .compare div {
+        border: 1px solid var(--hairline);
+        border-radius: 16px;
+        padding: 24px;
+      }
+
+      .compare h3 {
+        margin: 0 0 12px;
+        font-size: 20px;
+        line-height: 1;
+        font-weight: 400;
+      }
+
+      .compare li {
+        margin-bottom: 8px;
+      }
+
+      .note {
+        background: var(--hairline);
+        padding: 16px 20px;
+        border-radius: 8px;
+        margin: 24px 0;
+      }
+
+      .note p {
+        margin: 0;
+      }
+
+      @media (max-width: 720px) {
+        .type-row,
+        .compare {
+          grid-template-columns: 1fr;
+        }
+        header.page h1 {
+          font-size: 36px;
+          letter-spacing: -0.9px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="page">
+        <p class="eyebrow">참고 시스템</p>
+        <h1>Runway 분석</h1>
+        <p>
+          <code>docs/40_디자인_자산/DESIGN-reference.md</code>의 토큰을 그대로 렌더링한
+          페이지입니다. 위둘에 그대로 적용하는 값이 아니라, 무엇을 가져오고 무엇을 두고 왔는지
+          비교하려고 만든 지면입니다. 위둘 정본은
+          <a href="./design-system.html">디자인 시스템 확인 페이지</a>에 있습니다.
+        </p>
+      </header>
+
+      <nav class="jump">
+        <a href="#color">색</a>
+        <a href="#type">타이포</a>
+        <a href="#shape">형태</a>
+        <a href="#component">컴포넌트</a>
+        <a href="#diff">위둘과의 차이</a>
+      </nav>
+
+      <div class="note">
+        <p>
+          원본 서체는 abcNormal 독점 폰트라 이 페이지에서 쓸 수 없습니다. 시스템 산세리프로 대체해
+          그렸으므로 자소 모양은 원본과 다릅니다. 크기·굵기·행간·자간은 문서 값 그대로입니다.
+        </p>
+      </div>
+
+      <section id="color">
+        <h2>색</h2>
+        <p class="lead">
+          검정과 흰색이 축이고, 회색 사다리가 촘촘합니다. 신호색(빨강·초록·노랑)이 없습니다. 폼의
+          검증 상태도 색이 아니라 테두리와 문장으로 알립니다.
+        </p>
+        <div class="swatches" id="swatches"></div>
+      </section>
+
+      <section id="type">
+        <h2>타이포</h2>
+        <p class="lead">
+          한 벌의 산세리프가 모든 층위를 맡습니다. 제목은 굵기를 올리지 않고 크기와 음수 자간으로만
+          위계를 만듭니다. 제목 행간이 1.0이라 여러 줄이 되면 촘촘하게 붙습니다.
+        </p>
+        <div id="type-scale"></div>
+      </section>
+
+      <section id="shape">
+        <h2>형태와 간격</h2>
+
+        <h3>모서리 반경</h3>
+        <div class="radius-row">
+          <div style="border-radius: 0">none 0</div>
+          <div style="border-radius: 4px">xs 4px</div>
+          <div style="border-radius: 6px">sm 6px</div>
+          <div style="border-radius: 8px">md 8px</div>
+          <div style="border-radius: 16px">lg 16px</div>
+          <div style="border-radius: 9999px">full</div>
+        </div>
+
+        <h3>간격</h3>
+        <div class="space-row" id="space-row"></div>
+
+        <h3>깊이</h3>
+        <p class="lead">
+          그림자를 전혀 쓰지 않습니다. 깊이는 사진을 겹치거나 면 색을 한 단계 바꾸는 방식으로만
+          만듭니다.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>단계</th>
+              <th>처리</th>
+              <th>쓰는 곳</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>평면</td>
+              <td>그림자 없음, 1px hairline 구분선</td>
+              <td>카드, 가격표, 목록, Footer</td>
+            </tr>
+            <tr>
+              <td>사진</td>
+              <td>scrim 위에 사진을 꽉 채움, 담긴 형태는 16px 반경</td>
+              <td>Hero, 중간 삽입 구간</td>
+            </tr>
+            <tr>
+              <td>면 단차</td>
+              <td>흰 면 위에 hairline 면을 얹음</td>
+              <td>강조 요금제 한 칸</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="component">
+        <h2>컴포넌트</h2>
+
+        <h3>버튼</h3>
+        <div class="row">
+          <button class="btn btn-primary">Get started</button>
+          <button class="btn btn-ghost">Learn more</button>
+          <button class="btn btn-link">Read the paper</button>
+        </div>
+        <div class="on-dark">
+          <button class="btn btn-primary">Get started</button>
+        </div>
+        <p class="lead" style="margin-top: 16px">
+          높이 40px, 글자 14px 600, 반경 full. 검정 알약이 모든 주 동작을 맡고 강조색이 따로
+          없습니다.
+        </p>
+
+        <h3>입력칸</h3>
+        <div class="field">
+          <label for="r1">Full name</label>
+          <input id="r1" placeholder="Type your full name" />
+        </div>
+        <p class="lead" style="margin-top: 16px">
+          박스가 아니라 아래쪽 1px 실선 한 줄입니다. 반경 0, placeholder는 stone 회색입니다.
+        </p>
+
+        <h3>가격 슬래브</h3>
+        <div class="slab">
+          <div>
+            <h4>Free</h4>
+            <p>기본 크레딧</p>
+          </div>
+          <div class="featured">
+            <h4>Pro</h4>
+            <p>면 색 한 단계로만 강조</p>
+          </div>
+          <div>
+            <h4>Unlimited</h4>
+            <p>무제한 생성</p>
+          </div>
+        </div>
+        <p class="lead" style="margin-top: 16px">
+          카드를 띄우지 않고 한 덩어리를 세로선으로 나눕니다. 강조 칸에 배지나 테두리를 두르지 않고
+          바탕색만 한 단계 올립니다.
+        </p>
+      </section>
+
+      <section id="diff">
+        <h2>위둘과의 차이</h2>
+        <p class="lead">
+          <code>DESIGN.md</code> 1-3에서 정한 내용입니다. 가져온 것은 지면을 짜는 방식이고, 가져오지
+          않은 것은 색과 글자 크기입니다.
+        </p>
+        <div class="compare">
+          <div>
+            <h3 style="margin-top: 0">가져온 것</h3>
+            <ul>
+              <li>넓은 여백과 섹션 리듬 64/96px</li>
+              <li>제목과 본문의 위계</li>
+              <li>얇은 실선 구분, 그림자 없는 면</li>
+              <li>일관된 알약형 버튼</li>
+              <li>8px 기준 간격 사다리</li>
+            </ul>
+          </div>
+          <div>
+            <h3 style="margin-top: 0">가져오지 않은 것</h3>
+            <ul>
+              <li>흑백 중심 색. 위둘은 앱 팔레트의 파랑을 쓴다</li>
+              <li>영화 같은 사진. 위둘은 실제 앱 화면과 편지봉투를 쓴다</li>
+              <li>14px 버튼 글자. 위둘은 20px에 높이 48px</li>
+              <li>밑줄 한 줄 입력칸. 위둘은 박스에 2px 경계선</li>
+              <li>반경 0 카드. 위둘은 16px</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const css = (name) =>
+        getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+      const colors = [
+        'primary',
+        'on-primary',
+        'ink',
+        'ink-soft',
+        'graphite',
+        'slate',
+        'slate-soft',
+        'mute',
+        'stone',
+        'ash',
+        'hairline',
+        'hairline-soft',
+        'surface-cool',
+        'canvas',
+        'canvas-warm',
+        'scrim',
+        'footer',
+      ];
+
+      document.getElementById('swatches').innerHTML = colors
+        .map((name) => {
+          const value = css(`--${name}`);
+          return `<figure><i style="background:${value}"></i><figcaption>${name}<br /><code>${value}</code></figcaption></figure>`;
+        })
+        .join('');
+
+      const scale = [
+        ['display', 48, 1, '-1.2px', 400],
+        ['display-sm', 40, 1, '-1px', 400],
+        ['heading-md', 36, 1, '-0.9px', 400],
+        ['heading-sm', 24, 1, 'normal', 400],
+        ['subtitle', 20, 1, 'normal', 400],
+        ['body', 16, 1.5, 'normal', 400],
+        ['body-strong', 16, 1.5, 'normal', 600],
+        ['body-tight', 16, 1.3, '-0.16px', 400],
+        ['link-sm', 14, 1.43, 'normal', 600],
+        ['eyebrow', 14, 1.43, '0.35px', 500],
+        ['meta', 13, 1.3, '-0.26px', 400],
+        ['micro-caps', 11, 1.3, '0.2px', 450],
+        ['button', 14, 1.43, 'normal', 600],
+      ];
+
+      document.getElementById('type-scale').innerHTML = scale
+        .map(
+          ([name, size, lh, ls, weight]) => `
+          <div class="type-row">
+            <div class="meta"><code>${name}</code><br />${size}px / ${lh} / ${ls} / ${weight}</div>
+            <div style="font-size:${size}px;line-height:${lh};letter-spacing:${ls};font-weight:${weight}">
+              Tools for human imagination 0123
+            </div>
+          </div>`,
+        )
+        .join('');
+
+      const spaces = [
+        ['xxs', 4],
+        ['xs', 8],
+        ['sm', 12],
+        ['md', 16],
+        ['lg', 24],
+        ['xl', 32],
+        ['xxl', 48],
+        ['section', 64],
+        ['section-lg', 96],
+      ];
+      document.getElementById('space-row').innerHTML = spaces
+        .map(([name, px]) => `<figure><i style="width:${px}px"></i>${name}<br />${px}</figure>`)
+        .join('');
+    </script>
+  </body>
+</html>

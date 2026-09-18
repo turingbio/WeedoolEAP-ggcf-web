@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>위둘 EAP 디자인 시스템 확인</title>
+    <style>
+      @font-face {
+        font-family: 'Pretendard Variable';
+        src: url('../../../src/app/fonts/PretendardVariable.woff2') format('woff2');
+        font-weight: 100 900;
+        font-display: swap;
+      }
+
+      /* 근거: src/app/palette.css — 값이 바뀌면 이 블록도 함께 고친다 */
+      :root {
+        --cool-neutral-1: #f7f7f8;
+        --cool-neutral-5: #f4f4f5;
+        --cool-neutral-10: #eaebec;
+        --cool-neutral-20: #e1e2e4;
+        --cool-neutral-30: #dbdcdf;
+        --cool-neutral-40: #c2c4c8;
+        --cool-neutral-50: #aeb0b6;
+        --cool-neutral-60: #989ba2;
+        --cool-neutral-70: #878a93;
+        --cool-neutral-80: #70737c;
+        --cool-neutral-90: #5a5c63;
+        --cool-neutral-100: #46474c;
+        --cool-neutral-200: #37383c;
+        --cool-neutral-300: #333438;
+        --cool-neutral-400: #2e2f33;
+        --cool-neutral-500: #292a2d;
+        --cool-neutral-600: #212225;
+        --cool-neutral-800: #171719;
+
+        --label-secondary: #1d1f27;
+        --label-primary: #5a5c63;
+        --label-tertiary: #878a93;
+        --label-strong: #000000;
+        --label-disable: #dfdfe0;
+        --label-assistive: #aeb0b6;
+
+        --primary-light: #4c94ff;
+        --primary-normal: #008eff;
+        --primary-strong: #0079ff;
+        --primary-heavy: #0066ff;
+
+        --line-normal: #70737c38;
+        --line-alternative: #70737c14;
+        --line-neutral: #70737c29;
+
+        --interaction-disable: #f1f4ff;
+        --interaction-inactive: #999ca5;
+
+        --background-normal: #ffffff;
+        --background-alternative: #f8f8fa;
+        --background-elevated: #edf3fa;
+        --background-muted: #fafafa;
+
+        --status-positive: #2eb8a1;
+        --status-negative: #f64c4c;
+        --status-cautionary: #ffb700;
+
+        --dimmer: #1717198c;
+
+        --fill-normal: #70737c14;
+        --fill-alternative: #70737c0d;
+        --fill-strong: #70737c29;
+
+        --palette-primary-50: #e5efff;
+        --palette-primary-100: #cce0ff;
+        --palette-primary-200: #99c2ff;
+        --palette-primary-300: #7fb2ff;
+        --palette-primary-400: #4c94ff;
+        --palette-primary-500: #1a75ff;
+        --palette-primary-600: #0066ff;
+        --palette-primary-700: #0052cc;
+        --palette-primary-800: #003d99;
+        --palette-primary-900: #002966;
+
+        --palette-error-50: #fee7e7;
+        --palette-error-100: #fccfcf;
+        --palette-error-200: #fa9e9e;
+        --palette-error-300: #f98686;
+        --palette-error-400: #f98686;
+        --palette-error-500: #f64c4c;
+        --palette-error-600: #f20d0d;
+        --palette-error-700: #c20a0a;
+        --palette-error-800: #910808;
+        --palette-error-900: #610505;
+
+        --brand: var(--primary-heavy);
+        --brand-strong: var(--palette-primary-700);
+        --brand-soft: var(--background-elevated);
+        --ink: var(--label-secondary);
+        --muted: var(--label-primary);
+        --line: var(--line-normal);
+        --control-border: var(--cool-neutral-80);
+        --surface: var(--background-alternative);
+        --danger: var(--palette-error-700);
+
+        --space-xxs: 4px;
+        --space-xs: 8px;
+        --space-sm: 12px;
+        --space-md: 16px;
+        --space-lg: 24px;
+        --space-xl: 32px;
+        --space-xxl: 48px;
+        --space-section: 64px;
+        --space-section-lg: 96px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0 20px 96px;
+        background: var(--background-normal);
+        color: var(--ink);
+        font-family:
+          'Pretendard Variable',
+          system-ui,
+          -apple-system,
+          'Malgun Gothic',
+          sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        word-break: keep-all;
+      }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+      }
+
+      header.page {
+        padding: 48px 0 32px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      header.page h1 {
+        margin: 0 0 8px;
+        font-size: 36px;
+        line-height: 44px;
+        letter-spacing: -0.025em;
+        font-weight: 700;
+      }
+
+      header.page p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      nav.jump {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        background: var(--background-normal);
+        z-index: 2;
+      }
+
+      nav.jump a {
+        padding: 6px 14px;
+        border: 1px solid var(--line);
+        border-radius: 9999px;
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      nav.jump a:hover {
+        background: var(--surface);
+      }
+
+      section {
+        padding: 64px 0 0;
+        scroll-margin-top: 80px;
+      }
+
+      h2 {
+        margin: 0 0 8px;
+        font-size: 28px;
+        line-height: 36px;
+        letter-spacing: -0.02em;
+        font-weight: 700;
+      }
+
+      h3 {
+        margin: 40px 0 12px;
+        font-size: 20px;
+        line-height: 1.5;
+        letter-spacing: -0.02em;
+        font-weight: 600;
+      }
+
+      .lead {
+        margin: 0 0 24px;
+        color: var(--muted);
+        max-width: 720px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 15px;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: middle;
+      }
+
+      th {
+        font-weight: 600;
+        color: var(--muted);
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      code {
+        font-family: ui-monospace, 'Consolas', monospace;
+        font-size: 13px;
+        background: var(--fill-alternative);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+
+      .chip {
+        display: inline-block;
+        width: 40px;
+        height: 24px;
+        border-radius: 4px;
+        border: 1px solid var(--line);
+        vertical-align: middle;
+      }
+
+      .pass {
+        color: #0b7a33;
+        font-weight: 600;
+      }
+
+      .fail {
+        color: var(--danger);
+        font-weight: 600;
+      }
+
+      .ramp {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 4px;
+        margin-bottom: 20px;
+      }
+
+      .ramp div {
+        height: 56px;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+        font-size: 11px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 4px;
+        color: var(--ink);
+      }
+
+      .ramp .name {
+        grid-column: 1 / -1;
+        height: auto;
+        border: 0;
+        justify-content: flex-start;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 0 0 2px;
+      }
+
+      .type-row {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 16px;
+        align-items: baseline;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .type-row .meta {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 12px 24px;
+        border-radius: 9999px;
+        font-size: 20px;
+        line-height: 1.5;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        border: 1px solid transparent;
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      .btn-primary {
+        background: var(--brand);
+        color: #fff;
+      }
+
+      .btn-primary:hover {
+        background: var(--brand-strong);
+      }
+
+      .btn-secondary {
+        background: #fff;
+        color: var(--brand);
+        border-color: var(--brand);
+      }
+
+      .btn-secondary:hover {
+        background: var(--surface);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--ink);
+        border-color: var(--line);
+      }
+
+      .btn-ghost:hover {
+        background: var(--surface);
+      }
+
+      .btn:disabled {
+        background: var(--interaction-disable);
+        color: var(--interaction-inactive);
+        border-color: transparent;
+        cursor: not-allowed;
+      }
+
+      .btn.is-focus {
+        outline: 2px solid var(--brand);
+        outline-offset: 2px;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .field {
+        max-width: 400px;
+      }
+
+      .field label {
+        display: block;
+        font-size: 18px;
+        line-height: 26px;
+        font-weight: 500;
+        margin-bottom: 12px;
+      }
+
+      .field input {
+        width: 100%;
+        min-height: 56px;
+        border-radius: 8px;
+        border: 2px solid var(--control-border);
+        background: #fff;
+        text-align: center;
+        font-family: ui-monospace, 'Consolas', monospace;
+        font-size: 24px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+
+      .field input:focus {
+        outline: none;
+        border-color: var(--brand);
+      }
+
+      .field.is-error input {
+        border-color: var(--danger);
+      }
+
+      .field .msg {
+        min-height: 3em;
+        margin: 8px 0 0;
+        color: var(--danger);
+        font-size: 16px;
+      }
+
+      .cards {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .card {
+        border-radius: 16px;
+        padding: 24px;
+        background: #fff;
+        border: 1px solid var(--line);
+      }
+
+      .card.alt {
+        background: var(--surface);
+        border-color: transparent;
+      }
+
+      .card .kicker {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        color: var(--brand);
+        margin: 0 0 8px;
+      }
+
+      .card h4 {
+        margin: 0 0 8px;
+        font-size: 20px;
+        line-height: 1.5;
+        font-weight: 600;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .faq {
+        max-width: 800px;
+      }
+
+      .faq details {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .faq details:first-child {
+        border-top: 1px solid var(--line);
+      }
+
+      .faq summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 48px;
+        padding: 20px 0;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 26px;
+        font-weight: 500;
+        list-style: none;
+      }
+
+      .faq details[open] summary {
+        font-weight: 600;
+      }
+
+      .faq summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .faq summary span {
+        transition: transform 180ms ease-out;
+      }
+
+      .faq details[open] summary span {
+        transform: rotate(90deg);
+      }
+
+      .faq p {
+        margin: 0 0 20px;
+        color: var(--muted);
+      }
+
+      .radius-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .radius-row div {
+        width: 120px;
+        height: 80px;
+        background: var(--brand-soft);
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .space-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .space-row figure {
+        margin: 0;
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .space-row i {
+        display: block;
+        background: var(--brand);
+        height: 24px;
+        margin-bottom: 6px;
+      }
+
+      .assets {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      }
+
+      .assets figure {
+        margin: 0;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        text-align: center;
+      }
+
+      .assets img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .assets figcaption {
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted);
+        word-break: break-all;
+      }
+
+      .note {
+        background: var(--brand-soft);
+        padding: 16px 20px;
+        border-radius: 8px;
+        margin: 24px 0;
+      }
+
+      .note p {
+        margin: 0;
+      }
+
+      .dont li {
+        margin-bottom: 8px;
+      }
+
+      @media (max-width: 640px) {
+        .type-row {
+          grid-template-columns: 1fr;
+        }
+        .ramp {
+          grid-template-columns: repeat(5, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="page">
+        <h1>위둘 EAP 디자인 시스템 확인</h1>
+        <p>
+          <code>DESIGN.md</code> 디자인 v1의 토큰과 컴포넌트를 실제 서체·자산으로 렌더링한
+          페이지입니다. 대비 수치는 이 페이지에서 계산합니다. 참고 시스템은
+          <a href="./design-reference.html">Runway 분석 페이지</a>에 있습니다.
+        </p>
+      </header>
+
+      <nav class="jump">
+        <a href="#color">색</a>
+        <a href="#type">타이포</a>
+        <a href="#space">간격·반경</a>
+        <a href="#component">컴포넌트</a>
+        <a href="#asset">자산</a>
+        <a href="#a11y">접근성</a>
+        <a href="#dont">하지 않는 것</a>
+      </nav>
+
+      <section id="color">
+        <h2>1. 색</h2>
+        <p class="lead">
+          토큰 정의는 <code>src/app/palette.css</code>에 있습니다. 화면에서는 아래 의미 별칭으로만
+          씁니다.
+        </p>
+
+        <h3>의미 색</h3>
+        <table id="semantic-table">
+          <thead>
+            <tr>
+              <th>쓰임</th>
+              <th>색</th>
+              <th>값</th>
+              <th>팔레트 토큰</th>
+              <th>흰 배경 대비</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <h3>주색 네 단계와 흰 글씨 대비</h3>
+        <p class="lead">
+          글씨가 얹히는 면에는 Heavy만 씁니다. 나머지 세 단계는 아이콘·테두리처럼 글씨가 얹히지 않는
+          자리에만 씁니다.
+        </p>
+        <table id="primary-table">
+          <thead>
+            <tr>
+              <th>단계</th>
+              <th>견본</th>
+              <th>값</th>
+              <th>흰 글씨 대비</th>
+              <th>AA 4.5:1</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <h3>앱 팔레트 램프</h3>
+        <div id="ramps"></div>
+      </section>
+
+      <section id="type">
+        <h2>2. 타이포</h2>
+        <p class="lead">
+          토큰 정의는 <code>src/app/typography.css</code>에 있습니다. 그 파일은 Tailwind의
+          <code>@theme</code> 블록이라 브라우저가 직접 읽지 못하므로, 이 페이지는 같은 값을 다시
+          적어 그립니다. 값이 바뀌면 두 곳을 함께 고칩니다.
+        </p>
+        <div id="type-scale"></div>
+
+        <div class="note">
+          <p>
+            본문 최솟값은 16px입니다. 14px은 제목 위 라벨, Footer 사업자 정보, 캡션에만 쓰고 13px
+            이하는 쓰지 않습니다.
+          </p>
+        </div>
+      </section>
+
+      <section id="space">
+        <h2>3. 간격과 반경</h2>
+
+        <h3>간격</h3>
+        <div class="space-row" id="space-row"></div>
+
+        <h3>모서리 반경</h3>
+        <div class="radius-row">
+          <div style="border-radius: 0">none 0</div>
+          <div style="border-radius: 4px">xs 4px</div>
+          <div style="border-radius: 6px">sm 6px</div>
+          <div style="border-radius: 8px">md 8px</div>
+          <div style="border-radius: 16px">lg 16px</div>
+          <div style="border-radius: 9999px">full</div>
+        </div>
+
+        <h3>깊이</h3>
+        <p class="lead">그림자를 쓰지 않습니다. 면 색 한 단계와 1px 실선으로만 구분합니다.</p>
+        <div class="cards">
+          <div class="card">
+            <h4>평면</h4>
+            <p>흰 바탕에 1px 실선</p>
+          </div>
+          <div class="card alt">
+            <h4>면 단차</h4>
+            <p>대체 바탕색을 흰 바탕 위에 얹음</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="component">
+        <h2>4. 컴포넌트</h2>
+
+        <h3>버튼</h3>
+        <div class="row">
+          <button class="btn btn-primary">계정 발급받기</button>
+          <button class="btn btn-secondary">이미지로 저장</button>
+          <button class="btn btn-ghost">사용자 매뉴얼</button>
+        </div>
+        <div class="row">
+          <button class="btn btn-primary is-focus">포커스</button>
+          <button class="btn btn-primary" disabled>비활성</button>
+          <button class="btn btn-primary">계정을 생성하고 있어요</button>
+        </div>
+        <p class="lead">
+          높이 48px 이상, 글자 20px 600, 반경 full. 누르는 동안 크기와 위치를 바꾸지 않고 색만
+          바뀝니다. 진행 중에는 스피너 대신 문구를 바꿉니다.
+        </p>
+
+        <h3>입력칸 (기관코드)</h3>
+        <div class="row" style="align-items: flex-start">
+          <div class="field">
+            <label for="f1">기관코드를 입력해 주세요</label>
+            <input id="f1" value="" />
+            <p class="msg"></p>
+          </div>
+          <div class="field is-error">
+            <label for="f2">기관코드를 입력해 주세요</label>
+            <input id="f2" value="" />
+            <p class="msg">기관코드를 다시 확인해 주세요</p>
+          </div>
+        </div>
+        <p class="lead">
+          경계선은 불투명한 <code>--cool-neutral-80</code>을 씁니다. 반투명
+          <code>--line-normal</code>은 흰 바탕에서 약 1.32:1이라 입력칸을 알아보는 유일한 단서로 쓸
+          수 없습니다. placeholder는 두지 않고, 오류 문구 자리는 평소에도 비워 둡니다.
+        </p>
+
+        <h3>카드</h3>
+        <div class="cards">
+          <div class="card">
+            <p class="kicker">24시간 AI 상담</p>
+            <h4>잠 못 드는 밤에도 대화해요</h4>
+            <p>언제든 편하게 마음을 꺼내 놓아요</p>
+          </div>
+          <div class="card alt">
+            <h4>개인정보 없는 계정</h4>
+            <p>이름·부서·연락처를 입력하지 않아요</p>
+          </div>
+          <div class="card">
+            <h4>계정 정보 카드</h4>
+            <p>흰 바탕, 반경 16px, 1px 실선</p>
+          </div>
+        </div>
+
+        <h3>FAQ</h3>
+        <div class="faq">
+          <details open>
+            <summary>소속 기관에서 제가 이용하는 사실을 알 수 있나요?<span>▸</span></summary>
+            <p>
+              알 수 없습니다. 기관은 누가 이용하는지 모르며, 상담 대화와 자가진단 결과도 볼 수
+              없습니다.
+            </p>
+          </details>
+          <details>
+            <summary>상담이나 진단 결과가 인사평가에 반영되나요?<span>▸</span></summary>
+            <p>
+              반영되지 않습니다. 기관은 상담 내용을 볼 수 없고, 상담 데이터는 이용자를 평가하거나
+              선별하는 근거로 쓰이지 않습니다.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section id="asset">
+        <h2>5. 이미지 자산</h2>
+        <p class="lead">
+          실제 파일을 그대로 불러옵니다. 보이지 않는 칸이 있으면 그 경로의 파일이 없거나 이름이
+          다릅니다.
+        </p>
+        <div class="assets">
+          <figure>
+            <img src="../../../public/brand/logo-full.png" alt="위둘 로고 가로형" />
+            <figcaption>brand/logo-full.png</figcaption>
+          </figure>
+          <figure>
+            <img src="../../../public/brand/logo-icon.png" alt="위둘 로고 아이콘" width="96" />
+            <figcaption>brand/logo-icon.png</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="../../../public/character/posture/main_motion_001.png"
+              alt="캐릭터 대표 포즈"
+            />
+            <figcaption>character/posture/main_motion_001.png</figcaption>
+          </figure>
+          <figure>
+            <img src="../../../public/hero-envelope.png" alt="편지봉투" />
+            <figcaption>hero-envelope.png</figcaption>
+          </figure>
+          <figure>
+            <img src="../../../public/qr/qr-ios.png" alt="App Store 설치 QR" width="120" />
+            <figcaption>qr/qr-ios.png</figcaption>
+          </figure>
+          <figure>
+            <img src="../../../public/qr/qr-android.png" alt="Google Play 설치 QR" width="120" />
+            <figcaption>qr/qr-android.png</figcaption>
+          </figure>
+        </div>
+
+        <h3>앱 캡처 5장</h3>
+        <div class="assets">
+          <figure>
+            <img src="../../../public/screenshot/process-login.png" alt="로그인 화면" />
+            <figcaption>① 로그인</figcaption>
+          </figure>
+          <figure>
+            <img src="../../../public/screenshot/process-screening.png" alt="자가진단 화면" />
+            <figcaption>② 자가진단</figcaption>
+          </figure>
+          <figure>
+            <img src="../../../public/screenshot/process-ba.png" alt="BA 수행 화면" />
+            <figcaption>③ BA 수행</figcaption>
+          </figure>
+          <figure>
+            <img src="../../../public/screenshot/process-chatbot.png" alt="AI 상담 화면" />
+            <figcaption>④ AI 상담</figcaption>
+          </figure>
+          <figure>
+            <img src="../../../public/screenshot/process-report.png" alt="리포트 화면" />
+            <figcaption>⑤ 리포트</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="a11y">
+        <h2>6. 접근성</h2>
+        <p class="lead">
+          아래 대비는 이 페이지에서 계산한 값입니다. WCAG 2.1 AA(본문 4.5:1, 큰 글자 3:1)가
+          기준입니다.
+        </p>
+        <table id="a11y-table">
+          <thead>
+            <tr>
+              <th>조합</th>
+              <th>견본</th>
+              <th>대비</th>
+              <th>판정</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="note">
+          <p>
+            이 표는 색 조합만 봅니다. 화면 전체의 적합성은 실제 화면에서 포커스·오류·확대 상태까지
+            확인해야 합니다.
+          </p>
+        </div>
+      </section>
+
+      <section id="dont">
+        <h2>7. 하지 않는 것</h2>
+        <ul class="dont">
+          <li>그림자로 깊이를 만들지 않는다</li>
+          <li>그라디언트를 면에 쓰지 않는다 (<code>/verify</code> 배경은 예외)</li>
+          <li>앱 팔레트 밖의 색을 만들지 않는다</li>
+          <li>느낌표와 과장 표현을 쓰지 않는다</li>
+          <li>동작 원리를 설명하는 문구를 넣지 않는다</li>
+          <li>아이콘 세트를 새로 들이지 않는다</li>
+        </ul>
+      </section>
+    </div>
+
+    <script>
+      const css = (name) =>
+        getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+      function toRgb(hex) {
+        let h = hex.replace('#', '');
+        if (h.length === 3)
+          h = h
+            .split('')
+            .map((c) => c + c)
+            .join('');
+        const a = h.length === 8 ? parseInt(h.slice(6, 8), 16) / 255 : 1;
+        return [
+          parseInt(h.slice(0, 2), 16),
+          parseInt(h.slice(2, 4), 16),
+          parseInt(h.slice(4, 6), 16),
+          a,
+        ];
+      }
+
+      /** 반투명 색을 배경 위에 합성한다 */
+      function flatten(fg, bg) {
+        const [r, g, b, a] = toRgb(fg);
+        const [br, bg2, bb] = toRgb(bg);
+        return [r * a + br * (1 - a), g * a + bg2 * (1 - a), b * a + bb * (1 - a)];
+      }
+
+      function luminance([r, g, b]) {
+        const f = (c) => {
+          c /= 255;
+          return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+        };
+        return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+      }
+
+      function contrast(fg, bg) {
+        const l1 = luminance(flatten(fg, bg));
+        const l2 = luminance(flatten(bg, '#ffffff'));
+        const hi = Math.max(l1, l2);
+        const lo = Math.min(l1, l2);
+        return (hi + 0.05) / (lo + 0.05);
+      }
+
+      const verdict = (ratio, min) =>
+        ratio >= min ? '<span class="pass">통과</span>' : '<span class="fail">미달</span>';
+
+      const semantic = [
+        ['본문 글자', '--label-secondary', 'ink'],
+        ['보조 글자', '--label-primary', 'muted'],
+        ['주색', '--primary-heavy', 'brand'],
+        ['주색 진한 쪽', '--palette-primary-700', 'brand-strong'],
+        ['주색 옅은 면', '--background-elevated', 'brand-soft', '배경'],
+        ['경계선', '--line-normal', 'line'],
+        ['입력칸 경계선', '--cool-neutral-80', 'control-border'],
+        ['대체 바탕', '--background-alternative', 'surface', '배경'],
+        ['오류', '--palette-error-700', 'danger'],
+      ];
+
+      document.querySelector('#semantic-table tbody').innerHTML = semantic
+        .map(([use, token, alias, kind]) => {
+          const value = css(token);
+          const ratio = contrast(value, '#ffffff');
+          const shown =
+            kind === '배경'
+              ? '<span style="color:var(--muted)">배경색</span>'
+              : value.length > 7
+                ? `${ratio.toFixed(2)}:1 (합성)`
+                : `${ratio.toFixed(2)}:1`;
+          return `<tr><td>${use} <code>${alias}</code></td><td><span class="chip" style="background:${value}"></span></td><td><code>${value}</code></td><td><code>${token}</code></td><td>${shown}</td></tr>`;
+        })
+        .join('');
+
+      const primaries = [
+        ['light', '--primary-light'],
+        ['Normal', '--primary-normal'],
+        ['Strong', '--primary-strong'],
+        ['Heavy', '--primary-heavy'],
+      ];
+
+      document.querySelector('#primary-table tbody').innerHTML = primaries
+        .map(([name, token]) => {
+          const value = css(token);
+          const ratio = contrast('#ffffff', value);
+          return `<tr><td>${name}</td><td><span class="chip" style="background:${value}"></span></td><td><code>${value}</code></td><td>${ratio.toFixed(2)}:1</td><td>${verdict(ratio, 4.5)}</td></tr>`;
+        })
+        .join('');
+
+      const ramps = {
+        Primary: 'palette-primary',
+        Error: 'palette-error',
+      };
+      const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+      document.getElementById('ramps').innerHTML = Object.entries(ramps)
+        .map(([label, prefix]) => {
+          const cells = steps
+            .map((s) => {
+              const value = css(`--${prefix}-${s}`);
+              const dark = contrast('#ffffff', value) >= 4.5;
+              return `<div style="background:${value};color:${dark ? '#fff' : '#1d1f27'}">${s}</div>`;
+            })
+            .join('');
+          return `<div class="ramp"><div class="name">${label}</div>${cells}</div>`;
+        })
+        .join('');
+
+      const neutralSteps = [
+        1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 800,
+      ];
+      document.getElementById('ramps').insertAdjacentHTML(
+        'beforeend',
+        `<div class="ramp"><div class="name">Cool Neutral</div>${neutralSteps
+          .map((s) => {
+            const value = css(`--cool-neutral-${s}`);
+            const dark = contrast('#ffffff', value) >= 4.5;
+            return `<div style="background:${value};color:${dark ? '#fff' : '#1d1f27'}">${s}</div>`;
+          })
+          .join('')}</div>`,
+      );
+
+      const scale = [
+        ['headline-1', 36, '44px', '-0.025em', 700],
+        ['headline-2', 28, '36px', '-0.02em', 700],
+        ['title-1', 24, '32px', '-0.02em', 600],
+        ['title-2', 22, '1.5', '-0.02em', 600],
+        ['title-3', 20, '1.5', '-0.02em', 600],
+        ['title-4', 18, '26px', '-0.02em', 500],
+        ['title-5', 17, '24px', '-0.02em', 500],
+        ['body-1', 16, '24px', '-0.02em', 400],
+        ['body-2', 15, '24px', '-0.01em', 400],
+        ['body-3', 14, '20px', '-0.01em', 400],
+        ['body-4', 13, '16px', '-0.005em', 400],
+        ['caption-1', 12, '16px', '0', 400],
+        ['caption-2', 11, '16px', '0', 400],
+      ];
+
+      document.getElementById('type-scale').innerHTML = scale
+        .map(
+          ([name, size, lh, ls, weight]) => `
+          <div class="type-row">
+            <div class="meta"><code>text-${name}</code><br />${size}px / ${lh} / ${ls}</div>
+            <div style="font-size:${size}px;line-height:${lh};letter-spacing:${ls};font-weight:${weight}">
+              요즘 마음, 괜찮으세요? Weedool EAP 0123
+            </div>
+          </div>`,
+        )
+        .join('');
+
+      const spaces = [
+        ['xxs', 4],
+        ['xs', 8],
+        ['sm', 12],
+        ['md', 16],
+        ['lg', 24],
+        ['xl', 32],
+        ['xxl', 48],
+        ['section', 64],
+        ['section-lg', 96],
+      ];
+      document.getElementById('space-row').innerHTML = spaces
+        .map(([name, px]) => `<figure><i style="width:${px}px"></i>${name}<br />${px}</figure>`)
+        .join('');
+
+      const pairs = [
+        ['본문 글자 / 흰 바탕', '--label-secondary', '#ffffff', 4.5, ''],
+        ['보조 글자 / 흰 바탕', '--label-primary', '#ffffff', 4.5, ''],
+        ['보조 글자 / 대체 바탕', '--label-primary', '#f8f8fa', 4.5, ''],
+        ['흰 글자 / 주색', '#ffffff', '--primary-heavy', 4.5, ''],
+        ['오류 글자 / 흰 바탕', '--palette-error-700', '#ffffff', 4.5, ''],
+        ['입력칸 경계선 / 흰 바탕', '--cool-neutral-80', '#ffffff', 3, ''],
+        [
+          '장식 실선 / 흰 바탕',
+          '--line-normal',
+          '#ffffff',
+          3,
+          '카드를 나누는 장식선이다. 입력칸을 알아보는 유일한 경계로 쓰지 않는다',
+        ],
+        [
+          '비활성 글자 / 비활성 배경',
+          '--interaction-inactive',
+          '--interaction-disable',
+          4.5,
+          'WCAG는 비활성 컨트롤에 대비를 요구하지 않는다',
+        ],
+      ];
+
+      document.querySelector('#a11y-table tbody').innerHTML = pairs
+        .map(([label, fg, bg, min, note]) => {
+          const fgv = fg.startsWith('--') ? css(fg) : fg;
+          const bgv = bg.startsWith('--') ? css(bg) : bg;
+          const ratio = contrast(fgv, bgv);
+          const sample = `<span style="display:inline-block;padding:6px 12px;border-radius:6px;background:${bgv};color:${fgv};font-weight:600">가나다 Ag</span>`;
+          return `<tr><td>${label}<br /><code>${fgv}</code> / <code>${bgv}</code></td><td>${sample}</td><td>${ratio.toFixed(2)}:1</td><td>${verdict(ratio, min)} <span style="color:var(--muted);font-size:12px">기준 ${min}:1</span>${note ? `<br /><span style="color:var(--muted);font-size:12px">${note}</span>` : ''}</td></tr>`;
+        })
+        .join('');
+    </script>
+  </body>
+</html>
