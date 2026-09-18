@@ -17,7 +17,7 @@
   --font-sans:
     var(--font-app), system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
 
-  /* 타이포그래피 (접근성 기준: 본문 18px 이상, 버튼 20px 이상) */
+  /* 타이포그래피 (접근성 기준: 본문 16px 이상, 버튼 20px 이상) */
   --text-body: 1.125rem;
   --text-body--line-height: 1.7;
   --text-button: 1.25rem;
