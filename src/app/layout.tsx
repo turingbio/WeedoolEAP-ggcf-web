@@ -17,7 +17,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko" className={`${pretendardVariable.variable} h-full antialiased`}>
+    <html
+      lang="ko"
+      data-scroll-behavior="smooth"
+      className={`${pretendardVariable.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col">
         <FlowProvider>{children}</FlowProvider>
       </body>
