@@ -8,6 +8,19 @@
   isolation: isolate;
 }
 
+@media (max-width: 767px) {
+  .panel {
+    aspect-ratio: 2.1;
+    border-radius: 22px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .panel {
+    aspect-ratio: 1.9;
+  }
+}
+
 .panel::before,
 .panel::after {
   position: absolute;
@@ -47,13 +60,13 @@
 }
 
 .report {
-  background: #f1edff;
+  background: #ebfaf7;
 }
 
 .illustration {
-  display: block;
-  width: 100%;
-  height: 100%;
+  object-fit: contain;
+  padding: 2%;
+  mix-blend-mode: multiply;
 }
 
 /* 짧은 반응으로 온기를 더하되 읽는 동안 계속 움직이지 않는다. */

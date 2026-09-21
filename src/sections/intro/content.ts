@@ -1,7 +1,7 @@
 export const introContent = {
   label: '기관 직원 전용 AI 멘탈케어',
   brandName: '위둘 EAP',
-  lead: '가 털어놓기 어려운 마음, 언제 어디서나 들어드려요',
+  lead: '가 털어놓기 어려운 마음, 언제 어디서든 들어드려요',
   body: '79,500건의 실제 상담 데이터로 학습한 AI와 임상 검증된 행동활성화 프로그램',
   features: [
     {

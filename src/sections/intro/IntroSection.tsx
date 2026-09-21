@@ -5,6 +5,8 @@ import { FeatureIllustration, type FeatureIllustrationKind } from './FeatureIllu
 
 const featureIllustrations: FeatureIllustrationKind[] = ['chat', 'check', 'routine', 'report'];
 
+const featureLabelColors = ['text-[#0052cc]', 'text-[#996e00]', 'text-[#b61634]', 'text-[#145247]'];
+
 export function IntroSection({ id }: SectionProps) {
   return (
     <SectionWrapper
@@ -21,7 +23,9 @@ export function IntroSection({ id }: SectionProps) {
               <FeatureIllustration kind={featureIllustrations[index]} />
             </div>
             <div className="relative z-1 md:max-w-[340px] xl:max-w-none">
-              <p className="mb-3 text-[15px] font-[550] text-subtle">{feature.label}</p>
+              <p className={`mb-3 text-[15px] font-[550] ${featureLabelColors[index]}`}>
+                {feature.label}
+              </p>
               <h3 className="mb-3 max-w-[260px] text-[25px] leading-[1.4] font-semibold tracking-[-0.02em] text-ink md:max-w-none md:text-2xl">
                 {feature.title}
               </h3>

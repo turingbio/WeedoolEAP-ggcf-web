@@ -5,7 +5,7 @@ const { footer } = commonContent;
 
 export function Footer() {
   return (
-    <footer className="bg-[#101722] py-24 text-[15px] leading-6 text-[#f5f7fb]">
+    <footer className="bg-[#171719] py-24 text-[15px] leading-6 text-[#f5f7fb]">
       <div className="site-container flex flex-col gap-2">
         <div className="mb-8 inline-flex w-fit">
           <Image
@@ -25,19 +25,19 @@ export function Footer() {
           {footer.phoneLabel}{' '}
           <a
             href={footer.phoneHref}
-            className="inline-flex min-h-touch items-center underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            className="inline-flex items-center underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           >
             {footer.phone}
           </a>{' '}
           {footer.hours} |{' '}
           <a
             href={footer.emailHref}
-            className="inline-flex min-h-touch items-center [overflow-wrap:anywhere] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            className="inline-flex items-center [overflow-wrap:anywhere] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           >
             {footer.email}
           </a>
         </p>
-        <p className="mt-8 border-t border-white/20 pt-6 text-white/75">{footer.copyright}</p>
+        <p className="mt-2 border-t border-white/20 pt-6 text-white/75">{footer.copyright}</p>
       </div>
     </footer>
   );

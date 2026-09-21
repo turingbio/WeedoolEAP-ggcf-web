@@ -1,4 +1,5 @@
 import { SectionWrapper } from '@/components/SectionWrapper';
+import { AnonymityDecoration } from './AnonymityDecoration';
 import type { SectionProps } from '../types';
 import { anonymityContent } from './content';
 
@@ -9,14 +10,15 @@ export function AnonymitySection({ id }: SectionProps) {
       label={anonymityContent.label}
       title={anonymityContent.title}
       headingClassName="max-w-[780px]"
-      className="bg-[linear-gradient(180deg,#e5efff_20%,#cce0ff_85%,#99c2ff86_90%,#d6f5f0_120%)] max-md:py-18"
+      decoration={<AnonymityDecoration />}
+      className="relative isolate overflow-hidden bg-[linear-gradient(115deg,#f4f8fd,#faf9f6,#fff5ee)] max-md:py-18"
     >
       <ul className="grid grid-cols-1 gap-7 md:grid-cols-3 md:gap-9">
         {anonymityContent.cards.map((card) => (
           <li key={card.title} className="flex items-start gap-3">
             <span
               aria-hidden="true"
-              className="grid h-[30px] flex-[0_0_30px] place-items-center rounded-full bg-[#ebfaf7] text-[17px] font-semibold text-[#145247]"
+              className="grid h-[30px] flex-[0_0_30px] place-items-center rounded-full bg-[#D6F5F0] text-[17px] font-semibold text-[#0B8E78]"
             >
               ✓
             </span>

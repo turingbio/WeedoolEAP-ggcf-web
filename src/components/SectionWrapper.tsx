@@ -3,6 +3,7 @@ type SectionWrapperProps = {
   label?: string;
   title?: string;
   description?: string;
+  decoration?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
   containerClassName?: string;
@@ -14,6 +15,7 @@ export function SectionWrapper({
   label,
   title,
   description,
+  decoration,
   children,
   className = '',
   containerClassName = '',
@@ -27,6 +29,7 @@ export function SectionWrapper({
       aria-labelledby={title ? titleId : undefined}
       className={`section-shell ${className}`}
     >
+      {decoration}
       <div className={`site-container section-inset ${containerClassName}`}>
         {(label || title) && (
           <div className={`section-heading ${headingClassName}`}>

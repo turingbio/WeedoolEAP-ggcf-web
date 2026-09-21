@@ -34,7 +34,7 @@ export function AccountSection({ id }: SectionProps) {
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className="section-shell mt-13 bg-[linear-gradient(115deg,#f4f8fd,#faf9f6,#fff5ee)]"
+      className="section-shell mt-13 bg-[linear-gradient(180deg,#e5efff_20%,#cce0ff_85%,#99c2ff86_90%,#d6f5f0_120%)]"
     >
       <div className="site-container section-inset flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-center">
         <div className="section-heading mb-0">
