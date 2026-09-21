@@ -1,5 +1,8 @@
 export const commonContent = {
   brandName: 'Weedool EAP',
+  header: {
+    ctaButton: '계정 발급받기',
+  },
   meta: {
     title: '위둘 EAP',
     description: '위둘 EAP 안내',
