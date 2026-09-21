@@ -14,7 +14,7 @@ import { accountContent } from '@/sections/account/content';
 import { processContent } from '@/sections/process/content';
 import { installContent } from '@/sections/install/content';
 import { faqContent } from '@/sections/faq/content';
-import logo from '../../../public/logo-full.png';
+import logo from '../../../public/brand/logo-full.png';
 import styles from './preview.module.css';
 
 export const metadata: Metadata = {
@@ -216,7 +216,7 @@ export default function DesignPreview() {
           </div>
         </section>
       </main>
-      <Footer preview />
+      <Footer />
     </div>
   );
 }

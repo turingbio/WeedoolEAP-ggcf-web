@@ -3,30 +3,18 @@ import Image from 'next/image';
 
 const { footer } = commonContent;
 
-export function Footer({ preview = false }: { preview?: boolean }) {
+export function Footer() {
   return (
-    <footer
-      className={
-        preview
-          ? 'bg-[#101722] py-24 text-[15px] leading-6 text-[#f5f7fb]'
-          : 'border-t border-[#202733] bg-[#202733] py-16 text-[15px] leading-6 text-[#f5f7fb]'
-      }
-    >
+    <footer className="bg-[#101722] py-24 text-[15px] leading-6 text-[#f5f7fb]">
       <div className="site-container flex flex-col gap-2">
-        <div
-          className={
-            preview
-              ? 'mb-8 inline-flex w-fit'
-              : 'mb-8 inline-flex w-fit rounded-md bg-[#faf8f4] px-3 py-2'
-          }
-        >
+        <div className="mb-8 inline-flex w-fit">
           <Image
-            src={preview ? '/logo-full.png' : '/brand/logo-original.webp'}
+            src="/brand/logo-full.png"
             alt={commonContent.brandName}
-            width={704}
+            width={744}
             height={128}
-            className={preview ? 'h-auto w-[136px] brightness-0 invert' : 'h-auto w-[136px]'}
-            sizes="136px"
+            className="h-auto w-36 brightness-0 invert"
+            sizes="144px"
           />
         </div>
         <p>

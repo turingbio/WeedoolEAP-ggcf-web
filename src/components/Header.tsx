@@ -7,9 +7,9 @@ export function Header() {
       <div className="site-container flex min-h-18 items-center md:min-h-20">
         <a href="#hero" aria-label={commonContent.brandName}>
           <Image
-            src="/brand/logo-original.webp"
+            src="/brand/logo-full.png"
             alt={commonContent.brandName}
-            width={704}
+            width={744}
             height={128}
             className="h-auto w-32 md:w-36"
             sizes="(max-width: 767px) 128px, 144px"
