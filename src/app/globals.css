@@ -20,7 +20,7 @@
   --color-line: #e4e9ef;
   --color-control-border: #d9dee6;
   --color-surface: #faf8f4;
-  --color-danger: var(--palette-error-700);
+  --color-danger: var(--palette-red-crayola-600);
   --color-disabled: var(--interaction-disable);
   --color-inactive: var(--interaction-inactive);
 
@@ -107,6 +107,50 @@ body {
       padding-inline: 80px;
     }
   }
+}
+
+@keyframes hero-sparkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.4) rotate(0deg);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1) rotate(35deg);
+  }
+  70% {
+    opacity: 0.15;
+    transform: scale(0.7) rotate(70deg);
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes hero-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+@theme inline {
+  --animate-hero-twinkle: hero-twinkle 4.2s ease-in-out infinite;
+  --animate-hero-sparkle: hero-sparkle 5s ease-in-out infinite;
+  --animate-hero-float: hero-float 7s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -27,10 +27,40 @@ export function HeroSection({ id }: SectionProps) {
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-[18%] right-[18%] h-[75%] w-[46%] rounded-full bg-[radial-gradient(circle,#fff3e2_0%,#fff3e200_70%)] blur-3xl" />
         <div className="absolute -bottom-[22%] -left-[8%] h-[70%] w-[46%] rounded-full bg-[radial-gradient(circle,#cfe0ff_0%,#cfe0ff00_70%)] blur-3xl" />
-        <div className="absolute top-[22%] left-[6%] size-3 rounded-full bg-white/70" />
-        <div className="absolute top-[64%] left-[22%] size-2 rounded-full bg-white/60" />
-        <div className="absolute top-[14%] left-[34%] size-1.5 rounded-full bg-[#99c2ff]/50" />
-        <div className="absolute bottom-[18%] left-[12%] size-2.5 rounded-full bg-[#ffd9a8]/60" />
+        <div className="absolute top-[22%] left-[6%] size-3 animate-hero-twinkle rounded-full bg-white/70 [animation-delay:0s]" />
+        <div className="absolute top-[64%] left-[22%] size-2 animate-hero-twinkle rounded-full bg-white/60 [animation-delay:1.4s]" />
+        <div className="absolute top-[14%] left-[34%] size-1.5 animate-hero-twinkle rounded-full bg-[#99c2ff]/60 [animation-delay:2.6s]" />
+        <div className="absolute bottom-[18%] left-[12%] size-2.5 animate-hero-twinkle rounded-full bg-[#ffb700]/55 [animation-delay:0.7s]" />
+        <div className="absolute top-[42%] left-[2%] size-2 animate-hero-twinkle rounded-full bg-[#ffb700]/45 [animation-delay:3.4s]" />
+        <div className="absolute top-[78%] left-[38%] size-1.5 animate-hero-twinkle rounded-full bg-[#99c2ff]/55 [animation-delay:2s]" />
+        <div className="absolute top-[10%] right-[46%] size-2.5 animate-hero-twinkle rounded-full bg-white/80 [animation-delay:1.8s]" />
+        <div className="absolute top-[70%] right-[42%] size-3.5 animate-hero-twinkle rounded-full bg-white/65 [animation-delay:4s]" />
+        <div className="absolute top-[26%] right-[20%] size-2 animate-hero-twinkle rounded-full bg-white/75 [animation-delay:3.1s]" />
+        <div className="absolute right-[54%] bottom-[10%] size-2 animate-hero-twinkle rounded-full bg-white/70 [animation-delay:2.4s]" />
+        <div className="absolute top-[52%] left-[16%] size-3.5 animate-hero-float rounded-full bg-white/55 [animation-delay:5s]" />
+        <svg
+          viewBox="0 0 24 24"
+          className="absolute top-[16%] right-[34%] size-6 animate-hero-sparkle text-[#ffb700] [animation-delay:0.4s]"
+          fill="currentColor"
+        >
+          <path d="M12 1.5c.5 5.2 4.8 9.5 10 10-5.2.5-9.5 4.8-10 10-.5-5.2-4.8-9.5-10-10 5.2-.5 9.5-4.8 10-10Z" />
+        </svg>
+        <svg
+          viewBox="0 0 24 24"
+          className="absolute top-[58%] right-[12%] size-4 animate-hero-sparkle text-white [animation-delay:2.2s]"
+          fill="currentColor"
+        >
+          <path d="M12 1.5c.5 5.2 4.8 9.5 10 10-5.2.5-9.5 4.8-10 10-.5-5.2-4.8-9.5-10-10 5.2-.5 9.5-4.8 10-10Z" />
+        </svg>
+        <svg
+          viewBox="0 0 24 24"
+          className="absolute top-[34%] left-[30%] size-5 animate-hero-sparkle text-[#99c2ff] [animation-delay:3.6s]"
+          fill="currentColor"
+        >
+          <path d="M12 1.5c.5 5.2 4.8 9.5 10 10-5.2.5-9.5 4.8-10 10-.5-5.2-4.8-9.5-10-10 5.2-.5 9.5-4.8 10-10Z" />
+        </svg>
+        <div className="absolute top-[30%] right-[6%] size-2.5 animate-hero-float rounded-full bg-[#ffb700]/40 [animation-delay:1s]" />
+        <div className="absolute right-[26%] bottom-[26%] size-3 animate-hero-float rounded-full bg-white/60 [animation-delay:3s]" />
       </div>
       <svg
         aria-hidden="true"
@@ -64,7 +94,7 @@ export function HeroSection({ id }: SectionProps) {
           <div className="mt-7 flex flex-wrap gap-2.5">
             <a
               href="#account"
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-brand-strong px-7 text-base font-[550] text-white transition-colors duration-150 hover:bg-brand-mid focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-brand-link"
+              className="inline-flex min-h-14 items-center justify-center rounded-full bg-brand-strong px-9 text-lg font-semibold text-white shadow-[0_8px_24px_rgb(0_102_255_/_0.28)] transition-colors duration-150 hover:bg-brand-mid focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-brand-link md:min-h-16 md:px-11 md:text-xl"
             >
               {heroContent.ctaButton}
             </a>
