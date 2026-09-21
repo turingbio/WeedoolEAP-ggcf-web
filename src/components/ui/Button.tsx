@@ -2,8 +2,15 @@ import type { ComponentProps } from 'react';
 
 type Variant = 'primary' | 'secondary' | 'ghost';
 
+type Size = 'md' | 'lg';
+
+const sizeClasses: Record<Size, string> = {
+  md: 'min-h-touch px-6 py-3 text-base font-medium',
+  lg: 'min-h-14 px-9 text-lg font-semibold md:min-h-16 md:px-11 md:text-xl',
+};
+
 const baseClass =
-  'inline-flex min-h-touch w-full items-center justify-center rounded-full px-6 py-3 text-center text-base font-medium transition-colors duration-200 md:w-auto ' +
+  'inline-flex w-full items-center justify-center rounded-full text-center transition-colors duration-200 md:w-auto ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ' +
   'disabled:cursor-not-allowed disabled:border-transparent disabled:bg-disabled disabled:text-inactive';
 
@@ -14,18 +21,31 @@ const variantClasses: Record<Variant, string> = {
   ghost: 'border border-line bg-transparent text-ink hover:bg-brand-tint active:bg-brand-tint',
 };
 
-function buttonClassName(variant: Variant, className?: string) {
-  return [baseClass, variantClasses[variant], className].filter(Boolean).join(' ');
+function buttonClassName(variant: Variant, size: Size, className?: string) {
+  return [baseClass, sizeClasses[size], variantClasses[variant], className]
+    .filter(Boolean)
+    .join(' ');
 }
 
-type ButtonProps = ComponentProps<'button'> & { variant?: Variant };
+type ButtonProps = ComponentProps<'button'> & { variant?: Variant; size?: Size };
 
-export function Button({ variant = 'primary', className, type = 'button', ...props }: ButtonProps) {
-  return <button type={type} className={buttonClassName(variant, className)} {...props} />;
+export function Button({
+  variant = 'primary',
+  size = 'md',
+  className,
+  type = 'button',
+  ...props
+}: ButtonProps) {
+  return <button type={type} className={buttonClassName(variant, size, className)} {...props} />;
 }
 
-type ButtonLinkProps = ComponentProps<'a'> & { variant?: Variant };
+type ButtonLinkProps = ComponentProps<'a'> & { variant?: Variant; size?: Size };
 
-export function ButtonLink({ variant = 'primary', className, ...props }: ButtonLinkProps) {
-  return <a className={buttonClassName(variant, className)} {...props} />;
+export function ButtonLink({
+  variant = 'primary',
+  size = 'md',
+  className,
+  ...props
+}: ButtonLinkProps) {
+  return <a className={buttonClassName(variant, size, className)} {...props} />;
 }

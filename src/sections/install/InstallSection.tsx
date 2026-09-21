@@ -56,7 +56,7 @@ export function InstallSection({ id }: SectionProps) {
               href={store.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+              className="mt-auto inline-flex items-end justify-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
             >
               <Image
                 src={store.badge}
@@ -70,7 +70,7 @@ export function InstallSection({ id }: SectionProps) {
         ))}
       </div>
 
-      <p className="mt-8 inline-flex items-center gap-2 rounded-full bg-white/70 px-5 py-2.5 text-base font-medium text-ink">
+      <p className="mt-8 hidden items-center gap-2 rounded-full bg-white/70 px-5 py-2.5 text-base font-medium text-ink md:inline-flex">
         <svg
           aria-hidden="true"
           viewBox="0 0 24 24"

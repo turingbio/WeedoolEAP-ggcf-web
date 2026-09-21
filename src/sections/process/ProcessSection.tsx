@@ -17,7 +17,7 @@ export function ProcessSection({ id }: SectionProps) {
         {processContent.steps.map((step, index) => (
           <li
             key={step.title}
-            className="grid min-w-0 grid-cols-[140px_1fr] items-start gap-6 max-[380px]:grid-cols-1 md:block"
+            className="flex min-w-0 flex-col items-center gap-4 text-center md:block md:text-left"
           >
             <div className="w-[140px] overflow-hidden rounded-xl border border-[#bbc7d6] bg-[#f2f4f7] md:w-[176px]">
               <Image

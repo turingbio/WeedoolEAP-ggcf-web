@@ -3,7 +3,7 @@ export function InstallDecoration() {
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <svg
         viewBox="0 0 200 300"
-        className="absolute top-1/2 left-2 h-[78%] -translate-y-1/2 -rotate-12 text-[#99c2ff] opacity-[0.32] md:left-10"
+        className="absolute top-1/2 right-2 h-[78%] -translate-y-1/2 rotate-12 text-[#99c2ff] opacity-[0.32] md:right-10"
         fill="none"
       >
         <rect

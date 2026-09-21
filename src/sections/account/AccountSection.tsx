@@ -58,7 +58,7 @@ export function AccountSection({ id }: SectionProps) {
             {isError ? accountContent.issueError : ''}
           </p>
           <div className="flex justify-center">
-            <Button onClick={handleIssue} disabled={isLoading} aria-busy={isLoading}>
+            <Button size="lg" onClick={handleIssue} disabled={isLoading} aria-busy={isLoading}>
               {isLoading
                 ? accountContent.loadingButton
                 : isError
