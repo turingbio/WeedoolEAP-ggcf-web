@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import type { ReadonlyURLSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { commonContent } from '@/content/common';
 import { useFlow } from '@/features/flow/FlowProvider';
@@ -27,6 +28,14 @@ function normalizeInputValue(value: string): string {
 }
 
 /** 기관코드 API 검증 결과 반환 */
+/** 대소문자와 무관하게 기관코드 파라미터를 읽는다 (orgCode, orgcode 등) */
+function readOrgCodeParam(params: URLSearchParams | ReadonlyURLSearchParams): string {
+  for (const [key, value] of params.entries()) {
+    if (key.toLowerCase() === 'orgcode') return value;
+  }
+  return '';
+}
+
 async function checkOrgCode(orgCode: string): Promise<VerifyResult> {
   try {
     const valid = await verifyOrgCode(orgCode);
@@ -41,7 +50,7 @@ export function OrgCodeForm() {
   const searchParams = useSearchParams();
   const { confirmOrgCode } = useFlow();
 
-  const initialOrgCode = normalizeOrgCode(searchParams.get('orgCode') ?? '');
+  const initialOrgCode = normalizeOrgCode(readOrgCodeParam(searchParams));
   const hasFullInitialCode = initialOrgCode.length === ORG_CODE_LENGTH;
 
   const [value, setValue] = useState(initialOrgCode);
@@ -202,68 +211,80 @@ export function OrgCodeForm() {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <h1 className="mb-8 text-[32px] leading-snug font-normal tracking-[-0.035em] md:text-[40px]">
+      <h1 className="mb-12 text-[32px] leading-snug font-medium tracking-[-0.035em] text-balance text-ink md:text-[40px] lg:mb-10">
         <label htmlFor="org-code">{orgCodeContent.label}</label>
       </h1>
 
-      <div
-        className={`relative isolate min-h-16 w-full overflow-hidden rounded-xl border bg-white transition-colors focus-within:border-brand-soft focus-within:ring-2 focus-within:ring-brand-soft ${
-          status === 'invalid' ? 'border-danger' : 'border-control-border'
-        }`}
-      >
-        <div aria-hidden="true" className="pointer-events-none grid h-16 w-full grid-cols-6">
-          {Array.from({ length: ORG_CODE_LENGTH }, (_, index) => {
-            const isSelected = hasSelection && index >= selectionStart && index < selectionEnd;
-            const isActive =
-              isFocused &&
-              (isSelected ||
-                (selectionStart === selectionEnd &&
-                  index === Math.min(selectionStart, ORG_CODE_LENGTH - 1)));
+      <div className="flex w-full items-center gap-3">
+        <div
+          className={`relative isolate min-h-16 flex-1 overflow-hidden rounded-xl border bg-white transition-colors focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/25 ${
+            status === 'invalid'
+              ? 'border-danger'
+              : status === 'checking'
+                ? 'border-brand ring-2 ring-brand/25'
+                : 'border-control-border'
+          }`}
+        >
+          <div aria-hidden="true" className="pointer-events-none grid h-16 w-full grid-cols-6">
+            {Array.from({ length: ORG_CODE_LENGTH }, (_, index) => {
+              const isSelected = hasSelection && index >= selectionStart && index < selectionEnd;
+              const isActive =
+                isFocused &&
+                (isSelected ||
+                  (selectionStart === selectionEnd &&
+                    index === Math.min(selectionStart, ORG_CODE_LENGTH - 1)));
 
-            return (
-              <span
-                key={index}
-                className={`flex min-w-0 items-center justify-center border-control-border text-2xl tracking-[0.2em] text-ink ${
-                  index > 0 ? 'border-l' : ''
-                } ${isSelected ? 'bg-brand-soft' : isActive ? 'bg-brand-tint' : ''}`}
-              >
-                {value[index] ?? ''}
-              </span>
-            );
-          })}
+              return (
+                <span
+                  key={index}
+                  className={`flex min-w-0 items-center justify-center border-control-border text-2xl tracking-[0.2em] text-ink ${
+                    index > 0 ? 'border-l' : ''
+                  } ${isSelected ? 'bg-brand-soft' : isActive ? 'bg-brand-tint' : ''}`}
+                >
+                  {value[index] ?? ''}
+                </span>
+              );
+            })}
+          </div>
+
+          <input
+            ref={inputRef}
+            id="org-code"
+            name="orgCode"
+            value={value}
+            onChange={handleChange}
+            onCompositionStart={handleCompositionStart}
+            onCompositionEnd={handleCompositionEnd}
+            onSelect={rememberSelection}
+            onPointerDown={handlePointerDown}
+            onPointerCancel={() => {
+              pointerDownRef.current = null;
+            }}
+            onClick={handleClick}
+            onFocus={(event) => {
+              setIsFocused(true);
+              rememberSelection(event);
+            }}
+            onBlur={() => setIsFocused(false)}
+            readOnly={status === 'checking'}
+            placeholder={orgCodeContent.placeholder}
+            inputMode="text"
+            autoCapitalize="characters"
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck={false}
+            aria-invalid={status === 'invalid'}
+            aria-describedby="org-code-message"
+            aria-busy={status === 'checking'}
+            className="absolute inset-0 z-10 h-full w-full cursor-text bg-transparent px-0 py-4 text-2xl tracking-[0.2em] text-transparent caret-transparent outline-none selection:bg-transparent selection:text-transparent placeholder:text-transparent"
+          />
         </div>
 
-        <input
-          ref={inputRef}
-          id="org-code"
-          name="orgCode"
-          value={value}
-          onChange={handleChange}
-          onCompositionStart={handleCompositionStart}
-          onCompositionEnd={handleCompositionEnd}
-          onSelect={rememberSelection}
-          onPointerDown={handlePointerDown}
-          onPointerCancel={() => {
-            pointerDownRef.current = null;
-          }}
-          onClick={handleClick}
-          onFocus={(event) => {
-            setIsFocused(true);
-            rememberSelection(event);
-          }}
-          onBlur={() => setIsFocused(false)}
-          readOnly={status === 'checking'}
-          placeholder={orgCodeContent.placeholder}
-          inputMode="text"
-          autoCapitalize="characters"
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck={false}
-          aria-invalid={status === 'invalid'}
-          aria-describedby="org-code-message"
-          aria-busy={status === 'checking'}
-          className="absolute inset-0 z-10 h-full w-full cursor-text bg-transparent px-0 py-4 text-2xl tracking-[0.2em] text-transparent caret-transparent outline-none selection:bg-transparent selection:text-transparent placeholder:text-transparent"
-        />
+        <span aria-hidden="true" className="size-6 shrink-0">
+          {status === 'checking' && (
+            <span className="block size-6 animate-spin rounded-full border-2 border-brand/25 border-t-brand motion-reduce:animate-none" />
+          )}
+        </span>
       </div>
 
       <p id="org-code-message" aria-live="polite" className="min-h-12 text-body-1 text-danger">
