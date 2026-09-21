@@ -1,0 +1,45 @@
+{
+  "viewports": [
+    {
+      "width": 320,
+      "scroll": 320,
+      "broken": [],
+      "h1": 1
+    },
+    {
+      "width": 360,
+      "scroll": 360,
+      "broken": [],
+      "h1": 1
+    },
+    {
+      "width": 768,
+      "scroll": 768,
+      "broken": [],
+      "h1": 1
+    },
+    {
+      "width": 1024,
+      "scroll": 1024,
+      "broken": [],
+      "h1": 1
+    },
+    {
+      "width": 1280,
+      "scroll": 1280,
+      "broken": [],
+      "h1": 1
+    },
+    {
+      "width": 1440,
+      "scroll": 1440,
+      "broken": [],
+      "h1": 1
+    }
+  ],
+  "pngWidth": 960,
+  "errors": [],
+  "faq": true,
+  "reducedMotion": true,
+  "zoom200": true
+}

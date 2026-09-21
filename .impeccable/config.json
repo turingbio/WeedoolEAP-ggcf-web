@@ -6,9 +6,7 @@
       {
         "rule": "low-contrast",
         "value": "*",
-        "files": [
-          "docs/40_디자인_자산/preview/design-system.html"
-        ],
+        "files": ["docs/40_디자인_자산/preview/design-system.html"],
         "createdAt": "2026-09-18T04:28:42.088Z",
         "reason": "비활성 버튼 상태 견본(#999ca5 on #f1f4ff). 앱 팔레트의 --interaction-inactive/--interaction-disable 조합이고 DESIGN.md 6-1이 규정한 상태다. WCAG는 비활성 컨트롤에 대비를 요구하지 않는다"
       }

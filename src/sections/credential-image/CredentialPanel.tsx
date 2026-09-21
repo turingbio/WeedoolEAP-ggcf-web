@@ -53,24 +53,20 @@ export function CredentialPanel({ orgCode, account }: CredentialPanelProps) {
   const saveLabel = isSaving ? content.savingButton : content.saveButton;
 
   return (
-    <div>
+    <div className="mx-auto max-w-[480px]">
       <div className="group relative">
         <CredentialCard ref={cardRef} orgCode={orgCode} account={account} />
-        <div className="absolute top-4 right-4 hidden opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100 md:block">
-          <Button onClick={handleSave} disabled={isSaving} className="px-4">
+        <div className="mt-4 opacity-100 transition-opacity md:pointer-fine:opacity-0 md:pointer-fine:group-focus-within:opacity-100 md:pointer-fine:group-hover:opacity-100">
+          <Button variant="secondary" onClick={handleSave} disabled={isSaving}>
             {saveLabel}
           </Button>
         </div>
       </div>
 
-      <div className="mt-4 md:hidden">
-        <Button onClick={handleSave} disabled={isSaving}>
-          {saveLabel}
-        </Button>
-      </div>
-
-      <ul aria-live="polite" className="mt-6 flex list-disc flex-col gap-2 pl-5">
-        <li className="font-bold">{accountContent.loginUntil(formatTime(account.expiresAt))}</li>
+      <ul aria-live="polite" className="mt-6 flex list-disc flex-col gap-2 pl-5 text-body-1">
+        <li className="font-semibold text-brand-strong">
+          {accountContent.loginUntil(formatTime(account.expiresAt))}
+        </li>
         {hasError ? (
           <li className="text-danger">{commonContent.errors.network}</li>
         ) : (

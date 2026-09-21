@@ -1,7 +1,7 @@
 import { ApiError } from '../errors';
 import { delay } from './delay';
 
-const VALID_ORG_CODE = (process.env.NEXT_PUBLIC_MOCK_VALID_ORG_CODE ?? 'A1B2C3').toUpperCase();
+const VALID_ORG_CODE = (process.env.NEXT_PUBLIC_MOCK_VALID_ORG_CODE ?? 'GGCF26').toUpperCase();
 const SERVER_ERROR_ORG_CODE = 'ERR500';
 
 /** 공통 목업 기관코드 검증 로직 */

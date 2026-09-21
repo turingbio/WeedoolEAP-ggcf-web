@@ -2,19 +2,19 @@
 @import './palette.css';
 @import './typography.css';
 
-/* DESIGN.md — 디자인 v1 */
+/* DESIGN.md — 조용하고 다정한 초대장 */
 @theme inline {
   /* 색상 */
-  --color-brand: var(--primary-heavy);
-  --color-brand-bright: var(--primary-strong);
-  --color-brand-strong: var(--palette-primary-700);
-  --color-brand-soft: var(--background-elevated);
-  --color-brand-tint: var(--palette-primary-50);
-  --color-ink: var(--label-secondary);
-  --color-muted: var(--label-primary);
-  --color-line: var(--line-normal);
-  --color-control-border: var(--cool-neutral-70);
-  --color-surface: var(--background-alternative);
+  --color-brand: #008eff;
+  --color-brand-bright: #0066ff;
+  --color-brand-strong: #0066ff;
+  --color-brand-soft: #edf4fc;
+  --color-brand-tint: #f1f6fc;
+  --color-ink: #20334d;
+  --color-muted: #485365;
+  --color-line: #e4e9ef;
+  --color-control-border: #d9dee6;
+  --color-surface: #faf8f4;
   --color-danger: var(--palette-error-700);
   --color-disabled: var(--interaction-disable);
   --color-inactive: var(--interaction-inactive);
@@ -23,10 +23,10 @@
   --font-sans:
     var(--font-app), system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
 
-  /* 타이포그래피 (접근성 기준: 본문 16px 이상, 버튼 20px 이상) */
+  /* 타이포그래피 (접근성 기준: 본문 16px 이상, 버튼은 절제된 14px) */
   --text-body: 1rem;
   --text-body--line-height: 1.5;
-  --text-button: 1.25rem;
+  --text-button: 0.875rem;
   --text-title: 1.75rem;
   --text-title--line-height: 1.35;
 
@@ -40,8 +40,8 @@ html {
 
 body {
   font-family: var(--font-sans);
-  color: var(--label-secondary);
-  background: var(--background-normal);
+  color: #20334d;
+  background: #ffffff;
   font-size: 1rem;
   line-height: 1.5;
   word-break: keep-all;
@@ -60,22 +60,26 @@ body {
 
   .section-heading {
     max-width: 720px;
-    margin-inline: auto;
-    margin-bottom: 32px;
+    margin-bottom: 56px;
   }
 
   .eyebrow {
-    margin-bottom: 8px;
-    color: var(--primary-heavy);
-    font-size: 0.875rem;
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 10px;
+    background: #f3eee6;
+    margin-bottom: 20px;
+    color: #40536a;
+    font-size: 1rem;
     line-height: 1.25rem;
-    font-weight: 600;
+    font-weight: 500;
   }
 
-  @media (min-width: 768px) {
-    .section-heading {
-      text-align: center;
-    }
+  .editorial-title {
+    font-size: clamp(2rem, 3.3vw, 3rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
   }
 
   @media (min-width: 1024px) {

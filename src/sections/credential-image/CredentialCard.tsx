@@ -23,25 +23,47 @@ export const CredentialCard = forwardRef<HTMLDivElement, CredentialCardProps>(
     ];
 
     return (
-      <div ref={ref} className="rounded-2xl border-2 border-line bg-white p-6 text-ink">
-        <p className="mb-5 text-title font-bold">{content.appName}</p>
+      <div
+        ref={ref}
+        className="@container w-full rounded-2xl border border-line bg-white p-6 text-ink"
+      >
+        {/* 일반 이미지로 저장본과 화면에 같은 로고를 사용한다. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/logo-full.png"
+          alt={content.appName}
+          width={120}
+          className="mb-8 h-auto w-[120px]"
+        />
 
-        <dl className="mb-6 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
+        <dl className="mb-8 space-y-4">
           {rows.map((row) => (
-            <div key={row.label} className="contents">
-              <dt className="text-muted">{row.label}</dt>
-              <dd className="font-mono font-bold tracking-wider">{row.value}</dd>
+            <div
+              key={row.label}
+              className="grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-4 border-b border-line pb-4"
+            >
+              <dt className="text-body-1 text-muted">{row.label}</dt>
+              <dd className="min-w-0 font-mono text-title-3 font-semibold [overflow-wrap:anywhere] [word-break:normal]">
+                {row.value}
+              </dd>
             </div>
           ))}
         </dl>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div data-credential-qr-grid className="grid grid-cols-1 gap-6 @min-[310px]:grid-cols-2">
           {qrCodes.map((qr) => (
             <figure key={qr.label} className="flex flex-col items-center gap-2">
               {/* PNG 변환에 확실히 포함되도록 next/image 대신 일반 img를 쓴다 */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={qr.src} alt={content.qrAlt(qr.label)} width={120} height={120} />
-              <figcaption className="text-muted">{qr.label}</figcaption>
+              <img
+                data-credential-qr
+                src={qr.src}
+                alt={content.qrAlt(qr.label)}
+                width={120}
+                height={120}
+                className="h-[120px] w-[120px]"
+              />
+              <figcaption className="text-body-1 text-muted">{qr.label}</figcaption>
             </figure>
           ))}
         </div>

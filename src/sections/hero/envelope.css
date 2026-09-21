@@ -1,0 +1,94 @@
+.hero-envelope-sprite {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 300 / 200;
+  background-image: url('/hero-envelope-sprite.png');
+  background-position: 1.66% 0%;
+  background-repeat: no-repeat;
+  background-size: 724% auto;
+  animation: hero-envelope-open 1s step-end forwards;
+}
+
+@media (min-width: 768px) {
+  .hero-envelope-sprite {
+    max-width: 360px;
+  }
+}
+
+@keyframes hero-envelope-open {
+  0% {
+    background-position: 1.66% 0%;
+  }
+
+  5.88% {
+    background-position: 20.99% 0%;
+  }
+
+  11.76% {
+    background-position: 40.33% 0%;
+  }
+
+  17.65% {
+    background-position: 59.67% 0%;
+  }
+
+  23.53% {
+    background-position: 79.01% 0%;
+  }
+
+  29.41% {
+    background-position: 98.13% 0%;
+  }
+
+  35.29% {
+    background-position: 1.66% 45.99%;
+  }
+
+  41.18% {
+    background-position: 20.99% 45.99%;
+  }
+
+  47.06% {
+    background-position: 40.33% 45.99%;
+  }
+
+  52.94% {
+    background-position: 59.67% 45.99%;
+  }
+
+  58.82% {
+    background-position: 79.01% 45.99%;
+  }
+
+  64.71% {
+    background-position: 98.13% 45.99%;
+  }
+
+  70.59% {
+    background-position: 1.66% 88.93%;
+  }
+
+  76.47% {
+    background-position: 20.99% 88.93%;
+  }
+
+  82.35% {
+    background-position: 40.33% 88.93%;
+  }
+
+  88.24% {
+    background-position: 59.67% 88.93%;
+  }
+
+  94.12%,
+  100% {
+    background-position: 79.01% 88.93%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-envelope-sprite {
+    background-position: 79.01% 88.93%;
+    animation: none;
+  }
+}

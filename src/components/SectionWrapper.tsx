@@ -3,24 +3,39 @@ type SectionWrapperProps = {
   label?: string;
   title?: string;
   children: React.ReactNode;
+  className?: string;
+  headingClassName?: string;
 };
 
-export function SectionWrapper({ id, label, title, children }: SectionWrapperProps) {
+export function SectionWrapper({
+  id,
+  label,
+  title,
+  children,
+  className = '',
+  headingClassName = '',
+}: SectionWrapperProps) {
   const titleId = `${id}-title`;
 
   return (
     <section
       id={id}
       aria-labelledby={title ? titleId : undefined}
-      className="mx-auto w-full max-w-7xl scroll-mx-4 border-b-2 border-gray-500 bg-gray-100 px-5 py-10"
+      className={`section-shell ${className}`}
     >
-      {label && <p>{label}</p>}
-      {title && (
-        <h2 id={titleId} className="mb-6 text-title font-bold">
-          {title}
-        </h2>
-      )}
-      {children}
+      <div className="site-container">
+        {(label || title) && (
+          <div className={`section-heading ${headingClassName}`}>
+            {label && <p className="eyebrow">{label}</p>}
+            {title && (
+              <h2 id={titleId} className="editorial-title">
+                {title}
+              </h2>
+            )}
+          </div>
+        )}
+        {children}
+      </div>
     </section>
   );
 }

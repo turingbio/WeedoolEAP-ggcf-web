@@ -1,0 +1,10 @@
+{
+  "threshold": 90,
+  "verdict": "pass",
+  "suggestions": [],
+  "score": 92,
+  "category_match": true,
+  "reasoning": "DESIGN.md 기준 시각 검토. 버튼 정렬과 봉투 프레임 잘림·번호 노출 수정 후 두 화면 및 저장 PNG 확인. 픽셀 시안 비교 점수는 아님.",
+  "next_actions": ["실기기 QR 스캔과 자동 다운로드 확인"],
+  "differences": []
+}
