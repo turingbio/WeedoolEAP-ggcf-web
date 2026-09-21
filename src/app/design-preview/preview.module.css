@@ -116,7 +116,7 @@
 .accountInner {
   /* padding: 0 80px; */
   margin: 0 auto;
-  width: min(1280px, 100% - 115px)
+  width: min(1280px, 100% - 115px);
 }
 .page .heroNote {
   font-size: 24px;

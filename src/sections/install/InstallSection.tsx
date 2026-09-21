@@ -27,14 +27,22 @@ export function InstallSection({ id }: SectionProps) {
     <SectionWrapper
       id={id}
       title={installContent.title}
-      className="border-y border-line bg-surface"
-      headingClassName="mx-auto text-center"
+      className="bg-[linear-gradient(130deg,#e5efff,#eef8ff_60%,#d6f5f0)]"
+      containerClassName="text-center"
+      headingClassName="mx-auto items-center text-center"
     >
-      <div className="mx-auto mt-16 grid max-w-[900px] justify-items-center gap-10 sm:grid-cols-2">
+      <div className="mx-auto mt-12 mb-12 flex flex-wrap justify-center gap-8 md:gap-24">
         {stores.map((store) => (
-          <div key={store.key} className="flex min-w-0 flex-col items-center gap-6 text-center">
-            <div className="rounded-2xl bg-white p-3 shadow-[0_8px_24px_rgb(32_51_77_/_0.06)]">
-              <Image src={store.qrImage} alt={store.qrAlt} width={120} height={120} unoptimized />
+          <div key={store.key} className="flex min-w-0 flex-col items-center gap-6">
+            <div className="rounded-[20px] bg-white p-3">
+              <Image
+                src={store.qrImage}
+                alt={store.qrAlt}
+                width={120}
+                height={120}
+                unoptimized
+                className="h-[120px] w-[120px]"
+              />
             </div>
             <ButtonLink href={store.href} target="_blank" rel="noopener noreferrer">
               {store.buttonLabel}
@@ -43,13 +51,15 @@ export function InstallSection({ id }: SectionProps) {
         ))}
       </div>
 
-      <p className="mt-6 text-center text-base leading-7 text-muted">{installContent.qrCaption}</p>
+      <p className="text-muted">{installContent.qrCaption}</p>
 
-      <div className="mt-10 flex justify-center">
-        <ButtonLink href={links.manual.href} download={links.manual.fileName} variant="secondary">
-          {installContent.manualButton}
-        </ButtonLink>
-      </div>
+      <a
+        href={links.manual.href}
+        download={links.manual.fileName}
+        className="mt-2 inline-flex min-h-12 items-center text-base text-brand-deep underline underline-offset-[5px] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-brand-link"
+      >
+        {installContent.manualButton}
+      </a>
     </SectionWrapper>
   );
 }

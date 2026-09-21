@@ -2,49 +2,56 @@ import Image from 'next/image';
 import { links } from '@/config/links';
 import type { SectionProps } from '../types';
 import { heroContent } from './content';
-import './hero.css';
 
 export function HeroSection({ id }: SectionProps) {
+  const [titleLead, titleTail] = heroContent.title.split(', ');
+
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="px-3 md:px-6">
-      <div className="paper-hero">
-        <Image
-          src="/hero-paper-v3.png"
-          alt=""
-          fill
-          preload
-          sizes="100vw"
-          className="paper-hero-art"
-        />
-        <div className="paper-hero-light" aria-hidden="true" />
-        <div className="paper-hero-copy">
-          <p className="mb-7 text-lg font-medium text-ink">{heroContent.body}</p>
-          <h1
-            id={`${id}-title`}
-            className="text-[44px] leading-[1.18] font-medium tracking-[-0.025em] text-ink md:text-[64px]"
+    <section
+      id={id}
+      aria-labelledby={`${id}-title`}
+      className="relative isolate flex min-h-[480px] items-center overflow-hidden bg-brand-pale md:min-h-[calc(100svh-80px)]"
+    >
+      <Image
+        src="/hero-paper-v3.png"
+        alt=""
+        fill
+        preload
+        sizes="100vw"
+        className="-z-20 object-cover object-[62%_center] md:object-[center_55%]"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,#edf5fff0,#edf5ffde_58%,#edf5ff20)] md:bg-[linear-gradient(90deg,#edf5fff5,#edf5ffe0_32%,#edf5ff00_76%)]"
+      />
+      <div className="site-container py-9 pb-25 md:py-0">
+        <p className="mb-7 text-base font-medium text-brand-mid md:text-2xl">{heroContent.body}</p>
+        <h1
+          id={`${id}-title`}
+          className="text-[44px] leading-[1.2] font-[650] tracking-[-0.025em] text-brand-deep md:text-[clamp(44px,5vw,60px)]"
+        >
+          {titleLead},
+          <br />
+          {titleTail}
+        </h1>
+        <p className="mt-9 text-lg text-muted md:text-[28px]">{heroContent.footer}</p>
+        <div className="mt-7 flex flex-wrap gap-2.5">
+          <a
+            href={links.appStore.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-12 items-center justify-center rounded-full bg-brand-strong px-5 text-base font-[550] text-white transition-colors duration-150 hover:bg-brand-mid focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-brand-link md:px-6"
           >
-            {heroContent.title.split(', ')[0]},<br />
-            {heroContent.title.split(', ')[1]}
-          </h1>
-          <p className="mt-8 max-w-[360px] text-lg leading-8 text-muted">{heroContent.footer}</p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <a
-              href={links.appStore.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center rounded-full bg-brand-strong px-7 text-base font-medium text-white hover:bg-brand-strong"
-            >
-              {heroContent.appStoreButton}
-            </a>
-            <a
-              href={links.googlePlay.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center rounded-full border border-[#bdcde0] bg-white/70 px-7 text-base font-medium text-ink hover:bg-white"
-            >
-              {heroContent.googlePlayButton}
-            </a>
-          </div>
+            {heroContent.appStoreButton}
+          </a>
+          <a
+            href={links.googlePlay.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-5 text-base font-[550] text-brand-mid transition-colors duration-150 hover:bg-[#cce0ff] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-brand-link md:px-6"
+          >
+            {heroContent.googlePlayButton}
+          </a>
         </div>
       </div>
     </section>

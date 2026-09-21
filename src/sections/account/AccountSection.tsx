@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { SectionWrapper } from '@/components/SectionWrapper';
 import { Button } from '@/components/ui/Button';
 import { useFlow } from '@/features/flow/FlowProvider';
 import { issueAccount } from '@/lib/api/accounts';
@@ -32,22 +31,27 @@ export function AccountSection({ id }: SectionProps) {
   }
 
   return (
-    <SectionWrapper
+    <section
       id={id}
-      label={accountContent.label}
-      title={accountContent.title}
-      className="bg-linear-to-br from-[#f4f8fd] via-[#faf9f6] to-[#fff5ee]"
+      aria-labelledby={`${id}-title`}
+      className="section-shell bg-[linear-gradient(115deg,#f4f8fd,#faf9f6,#fff5ee)]"
     >
-      <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-24">
-        <div>
-          <p className="max-w-[420px] text-lg leading-relaxed text-muted">{accountContent.body}</p>
+      <div className="site-container section-inset flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-center">
+        <div className="section-heading mb-0">
+          <p className="eyebrow">{accountContent.label}</p>
+          <h2 id={`${id}-title`} className="editorial-title mb-5">
+            {accountContent.title}
+          </h2>
+          <p className="text-muted">{accountContent.body}</p>
         </div>
 
         {orgCode && account ? (
-          <CredentialPanel orgCode={orgCode} account={account} />
+          <div className="w-full max-w-[480px] shrink-0">
+            <CredentialPanel orgCode={orgCode} account={account} />
+          </div>
         ) : (
-          <div className="w-full max-w-[480px] self-center">
-            <p aria-live="polite" className="mb-3 text-danger">
+          <div className="w-full max-w-[480px] shrink-0 lg:w-auto">
+            <p aria-live="polite" className="mb-3 text-base text-danger">
               {isError ? accountContent.issueError : ''}
             </p>
             <Button
@@ -65,6 +69,6 @@ export function AccountSection({ id }: SectionProps) {
           </div>
         )}
       </div>
-    </SectionWrapper>
+    </section>
   );
 }

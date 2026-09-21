@@ -171,10 +171,7 @@ export function OrgCodeForm() {
 
     if (!pointerDown || event.detail !== 1 || status === 'checking') return;
 
-    const pointerMoved = Math.hypot(
-      event.clientX - pointerDown.x,
-      event.clientY - pointerDown.y,
-    );
+    const pointerMoved = Math.hypot(event.clientX - pointerDown.x, event.clientY - pointerDown.y);
     if (pointerMoved > 4) return;
 
     const input = event.currentTarget;
@@ -182,10 +179,7 @@ export function OrgCodeForm() {
     const cellWidth = bounds.width / ORG_CODE_LENGTH;
     const nextPosition = Math.max(
       0,
-      Math.min(
-        ORG_CODE_LENGTH,
-        Math.floor((event.clientX - bounds.left) / cellWidth),
-      ),
+      Math.min(ORG_CODE_LENGTH, Math.floor((event.clientX - bounds.left) / cellWidth)),
     );
 
     requestAnimationFrame(() => {
@@ -217,13 +211,9 @@ export function OrgCodeForm() {
           status === 'invalid' ? 'border-danger' : 'border-control-border'
         }`}
       >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none grid h-16 w-full grid-cols-6"
-        >
+        <div aria-hidden="true" className="pointer-events-none grid h-16 w-full grid-cols-6">
           {Array.from({ length: ORG_CODE_LENGTH }, (_, index) => {
-            const isSelected =
-              hasSelection && index >= selectionStart && index < selectionEnd;
+            const isSelected = hasSelection && index >= selectionStart && index < selectionEnd;
             const isActive =
               isFocused &&
               (isSelected ||
@@ -235,13 +225,7 @@ export function OrgCodeForm() {
                 key={index}
                 className={`flex min-w-0 items-center justify-center border-control-border text-2xl tracking-[0.2em] text-ink ${
                   index > 0 ? 'border-l' : ''
-                } ${
-                  isSelected
-                    ? 'bg-brand-soft'
-                    : isActive
-                      ? 'bg-brand-tint'
-                      : ''
-                }`}
+                } ${isSelected ? 'bg-brand-soft' : isActive ? 'bg-brand-tint' : ''}`}
               >
                 {value[index] ?? ''}
               </span>

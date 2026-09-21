@@ -13,29 +13,30 @@ export function ProcessSection({ id }: SectionProps) {
       title={processContent.title}
       className="bg-white"
     >
-      <ol className="mt-16 grid gap-x-8 gap-y-12 sm:grid-cols-2 xl:grid-cols-5">
+      <ol className="grid grid-cols-1 gap-9 md:grid-cols-3 md:gap-7 xl:grid-cols-5">
         {processContent.steps.map((step, index) => (
           <li
             key={step.title}
-            className="flex min-w-0 flex-row items-start gap-5 sm:flex-col sm:gap-6"
+            className="grid min-w-0 grid-cols-[140px_1fr] items-start gap-6 max-[380px]:grid-cols-1 md:block"
           >
-            <div className="relative aspect-[750/1624] w-[88px] shrink-0 overflow-hidden rounded-[22px] bg-[#f5f8fd] shadow-[0_10px_24px_rgb(32_51_77_/_0.08)] sm:w-[104px] xl:w-[120px]">
+            <div className="w-[140px] overflow-hidden rounded-xl border border-[#bbc7d6] bg-[#f2f4f7] md:w-[176px]">
               <Image
                 src={`/screenshot/process-${screenshots[index]}.png`}
                 alt={`${step.title} ${processContent.captureAlt}`}
-                fill
-                sizes="(min-width: 1280px) 120px, (min-width: 640px) 104px, 88px"
-                className="object-contain"
+                width={176}
+                height={381}
+                sizes="(max-width: 767px) 140px, 176px"
+                className="block h-auto w-full"
               />
             </div>
-            <div className="w-full">
-              <p className="mb-4 text-base font-medium tracking-normal text-muted uppercase">
-                0{index + 1}
-              </p>
-              <h3 className="mb-3 text-2xl leading-tight font-medium tracking-[-0.015em] text-ink">
+            <div className="md:mt-7">
+              <span className="mb-4 inline-grid h-7 w-7 place-items-center rounded-full bg-brand-pale text-[15px] font-semibold text-brand-mid">
+                {index + 1}
+              </span>
+              <h3 className="mb-2 text-[22px] leading-[1.4] font-semibold tracking-[-0.02em] text-ink">
                 {step.title}
               </h3>
-              <p className="text-lg leading-8 text-muted">{step.description}</p>
+              <p className="text-[17px] text-muted">{step.description}</p>
             </div>
           </li>
         ))}

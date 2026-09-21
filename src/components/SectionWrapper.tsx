@@ -2,8 +2,10 @@ type SectionWrapperProps = {
   id: string;
   label?: string;
   title?: string;
+  description?: string;
   children: React.ReactNode;
   className?: string;
+  containerClassName?: string;
   headingClassName?: string;
 };
 
@@ -11,8 +13,10 @@ export function SectionWrapper({
   id,
   label,
   title,
+  description,
   children,
   className = '',
+  containerClassName = '',
   headingClassName = '',
 }: SectionWrapperProps) {
   const titleId = `${id}-title`;
@@ -23,7 +27,7 @@ export function SectionWrapper({
       aria-labelledby={title ? titleId : undefined}
       className={`section-shell ${className}`}
     >
-      <div className="site-container">
+      <div className={`site-container section-inset ${containerClassName}`}>
         {(label || title) && (
           <div className={`section-heading ${headingClassName}`}>
             {label && <p className="eyebrow">{label}</p>}
@@ -31,6 +35,11 @@ export function SectionWrapper({
               <h2 id={titleId} className="editorial-title">
                 {title}
               </h2>
+            )}
+            {description && (
+              <p className="mt-4 max-w-[780px] text-lg text-muted md:text-[1.125rem]">
+                {description}
+              </p>
             )}
           </div>
         )}

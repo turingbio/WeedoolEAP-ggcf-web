@@ -2,16 +2,21 @@
 @import './palette.css';
 @import './typography.css';
 
-/* DESIGN.md — 조용하고 다정한 초대장 */
+/* DESIGN.md — 조용하고 다정한 초대장 (v4 시안 반영) */
 @theme inline {
   /* 색상 */
   --color-brand: #008eff;
   --color-brand-bright: #0066ff;
   --color-brand-strong: #0066ff;
+  --color-brand-link: #0052cc;
+  --color-brand-mid: #003d99;
+  --color-brand-deep: #002966;
   --color-brand-soft: #edf4fc;
   --color-brand-tint: #f1f6fc;
-  --color-ink: #20334d;
-  --color-muted: #485365;
+  --color-brand-pale: #e5efff;
+  --color-ink: #202b37;
+  --color-muted: #414e62;
+  --color-subtle: #344051;
   --color-line: #e4e9ef;
   --color-control-border: #d9dee6;
   --color-surface: #faf8f4;
@@ -40,55 +45,65 @@ html {
 
 body {
   font-family: var(--font-sans);
-  color: #20334d;
+  color: #202b37;
   background: #ffffff;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  letter-spacing: -0.015em;
   word-break: keep-all;
   overflow-wrap: anywhere;
 }
 
 @layer components {
   .site-container {
-    width: min(calc(100% - 40px), 1280px);
+    width: min(1280px, calc(100% - 40px));
     margin-inline: auto;
   }
 
   .section-shell {
-    padding-block: 64px;
+    padding-block: 48px;
   }
 
   .section-heading {
-    max-width: 720px;
-    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 24px;
   }
 
   .eyebrow {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 10px;
-    background: #f3eee6;
-    margin-bottom: 20px;
-    color: #40536a;
+    margin-bottom: 12px;
+    color: #0052cc;
     font-size: 1rem;
-    line-height: 1.25rem;
-    font-weight: 500;
+    line-height: 1.5;
+    font-weight: 550;
   }
 
   .editorial-title {
-    font-size: clamp(2rem, 3.3vw, 3rem);
-    font-weight: 500;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     .site-container {
-      width: min(calc(100% - 96px), 1280px);
+      width: min(1280px, calc(100% - 64px));
     }
 
     .section-shell {
-      padding-block: 96px;
+      padding-block: 120px;
+    }
+
+    .section-heading {
+      margin-bottom: 52px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-inset {
+      padding-inline: 80px;
     }
   }
 }
