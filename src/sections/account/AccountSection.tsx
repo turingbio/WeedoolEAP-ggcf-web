@@ -3,8 +3,11 @@
 import { useState } from 'react';
 import { SectionWrapper } from '@/components/SectionWrapper';
 import { Button } from '@/components/ui/Button';
+import { commonContent } from '@/content/common';
 import { useFlow } from '@/features/flow/FlowProvider';
 import { issueAccount } from '@/lib/api/accounts';
+import { toErrorKind } from '@/lib/api/errors';
+import type { ErrorKind } from '@/lib/api/errors';
 import { CredentialPanel } from '../credential-image/CredentialPanel';
 import type { SectionProps } from '../types';
 import { AccountDecoration } from './AccountDecoration';
@@ -15,10 +18,15 @@ type RequestStatus = 'idle' | 'loading' | 'error';
 export function AccountSection({ id }: SectionProps) {
   const { orgCode, account, setAccount } = useFlow();
   const [requestStatus, setRequestStatus] = useState<RequestStatus>('idle');
+  const [errorKind, setErrorKind] = useState<ErrorKind>('other');
 
   const isIssued = Boolean(orgCode && account);
   const isLoading = requestStatus === 'loading';
   const isError = requestStatus === 'error';
+  const errorMessage =
+    errorKind === 'invalidOrgCode'
+      ? commonContent.errors.invalidOrgCode
+      : accountContent.issueError;
 
   async function handleIssue() {
     if (!orgCode || isLoading) return;
@@ -28,7 +36,8 @@ export function AccountSection({ id }: SectionProps) {
       const nextAccount = await issueAccount(orgCode);
       setAccount(nextAccount);
       setRequestStatus('idle');
-    } catch {
+    } catch (error) {
+      setErrorKind(toErrorKind(error));
       setRequestStatus('error');
     }
   }
@@ -55,7 +64,7 @@ export function AccountSection({ id }: SectionProps) {
       ) : (
         <div className="mx-auto w-full max-w-[420px]">
           <p aria-live="polite" className="mb-3 text-base text-danger">
-            {isError ? accountContent.issueError : ''}
+            {isError ? errorMessage : ''}
           </p>
           <div className="flex justify-center">
             <Button size="lg" onClick={handleIssue} disabled={isLoading} aria-busy={isLoading}>
