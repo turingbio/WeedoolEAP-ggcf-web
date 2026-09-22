@@ -76,8 +76,6 @@ UX 라이팅 원칙이 정해져 있습니다. 동작 원리를 설명하지 않
 
 `src/app/globals.css`의 토큰은 아직 테스트용이며 디자인 작업에서 정본 자산 기준으로 다시 정합니다. `public/brand/intro.png`도 회색 플레이스홀더입니다.
 
-푸터 문구는 `src/content/common.ts`에서 아직 TODO 상태입니다.
-
 ## Product Principles
 
 1. 개인정보를 받지 않는다. 화면에 필드를 두지 않는 수준이 아니라, 받을 이유가 생기지 않도록 흐름을 설계한다.

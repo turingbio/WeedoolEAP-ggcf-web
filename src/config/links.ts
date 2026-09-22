@@ -1,4 +1,3 @@
-// TODO: QR 이미지는 추후 반영 예정. 임시 이미지 경로 사용
 export const links = {
   manual: {
     href: '/manual/weedool-manual.pdf',
