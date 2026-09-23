@@ -4,8 +4,10 @@ export const commonContent = {
     ctaButton: '계정 발급받기',
   },
   meta: {
-    title: '위둘 EAP',
-    description: '위둘 EAP 안내',
+    title: '요즘 마음, 괜찮으세요?',
+    siteName: '위둘 EAP',
+    description: '기관이 준비한 마음 편지가 도착했어요.',
+    ogAlt: '위둘 EAP — 요즘 마음, 괜찮으세요?',
   },
   errors: {
     invalidOrgCode: '기관코드를 다시 확인해 주세요',
