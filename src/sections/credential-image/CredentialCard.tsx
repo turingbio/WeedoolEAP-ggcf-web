@@ -40,10 +40,10 @@ export const CredentialCard = forwardRef<HTMLDivElement, CredentialCardProps>(
           {rows.map((row) => (
             <div
               key={row.label}
-              className="grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-4 border-b border-line pb-4"
+              className="grid grid-cols-1 gap-x-4 gap-y-0.5 border-b border-line pb-4 @min-[300px]:grid-cols-[auto_minmax(0,1fr)] @min-[300px]:items-baseline"
             >
               <dt className="text-body-1 text-muted">{row.label}</dt>
-              <dd className="min-w-0 font-mono text-title-3 font-semibold [overflow-wrap:anywhere] [word-break:normal]">
+              <dd className="min-w-0 font-mono text-title-4 font-semibold [overflow-wrap:anywhere] [word-break:normal] @min-[300px]:text-title-3">
                 {row.value}
               </dd>
             </div>

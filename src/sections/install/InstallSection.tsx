@@ -15,6 +15,7 @@ const stores = [
     badge: '/store/appstore-ko.svg',
     badgeWidth: 143,
     badgeHeight: 44,
+    badgeClass: '',
   },
   {
     key: 'android',
@@ -22,9 +23,11 @@ const stores = [
     qrImage: links.googlePlay.qrImage,
     buttonLabel: installContent.googlePlayButton,
     qrAlt: installContent.androidQrAlt,
+    // 원본에 상하 여백이 11.6%씩 들어 있어, 배지가 App Store와 같은 높이로 보이도록 키우고 여백만큼 당긴다
     badge: '/store/googleplay-ko.png',
-    badgeWidth: 142,
-    badgeHeight: 55,
+    badgeWidth: 147,
+    badgeHeight: 57,
+    badgeClass: '-my-[7px]',
   },
 ];
 
@@ -64,6 +67,7 @@ export function InstallSection({ id }: SectionProps) {
                 width={store.badgeWidth}
                 height={store.badgeHeight}
                 unoptimized
+                className={store.badgeClass}
               />
             </a>
           </div>
