@@ -10,7 +10,7 @@ const sizeClasses: Record<Size, string> = {
 };
 
 const baseClass =
-  'inline-flex w-full items-center justify-center rounded-full text-center transition-colors duration-200 md:w-auto ' +
+  'inline-flex w-full items-center justify-center rounded-full text-center transition-colors duration-200 md:w-auto cursor-pointer ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ' +
   'disabled:cursor-not-allowed disabled:border-transparent disabled:bg-disabled disabled:text-inactive';
 
