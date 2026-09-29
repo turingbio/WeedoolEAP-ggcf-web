@@ -5,7 +5,7 @@ import { commonContent } from '@/content/common';
 import { FlowProvider } from '@/features/flow/FlowProvider';
 
 const pretendardVariable = localFont({
-  src: [{ path: './fonts/PretendardVariable.woff2' }],
+  src: [{ path: './fonts/PretendardVariable.woff2', weight: '45 920', style: 'normal' }],
   variable: '--font-app',
   display: 'swap',
 });
