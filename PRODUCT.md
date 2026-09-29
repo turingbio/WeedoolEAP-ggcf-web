@@ -61,7 +61,7 @@ UX 라이팅 원칙이 정해져 있습니다. 동작 원리를 설명하지 않
 
 가지고 있는 것은 다음과 같습니다.
 
-- `public/manual/weedool-manual.pdf` — 단계별 사용 매뉴얼 실물, 약 5.6MB
+- `public/manual/Weedool_EAP_User_Manual.pdf` — 단계별 사용 매뉴얼 실물, 약 3.4MB
 - `public/store/qr-ios.png`, `public/store/qr-android.png` — 앱 설치 QR 실물
 - `docs/30_API_계약.md`, `docs/11_seed.yaml`, `docs/20_기획_화면흐름_초안.md` — 승인된 기획 문서
 - `docs/42_디자인_자산/brand/` — 위둘 로고, 배너, 톤앤무드 원본
