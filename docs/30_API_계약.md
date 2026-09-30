@@ -35,7 +35,7 @@ v0.3까지는 프론트엔드 mock을 기준으로 작성한 안이었다. v0.4�
 - 형식: JSON, `Content-Type: application/json; charset=utf-8`
 - 인증: 없음. 두 API 모두 인증 없이 호출한다
 - 기본 주소: 환경 변수로 받는다 `NEXT_PUBLIC_API_BASE_URL`
-  - 운영 주소는 `https://lifeapi.weedool.com:8071`이다
+  - 운영 주소는 `https://lifeapi.weedool.com:8081`이다
   - **끝의 `/` 없이 전달한다.** 프론트엔드가 `기본 주소 + /orgs/v1/...`으로 이어 붙인다
 
 ### 나. 응답 래퍼
