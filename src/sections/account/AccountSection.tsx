@@ -5,6 +5,7 @@ import { SectionWrapper } from '@/components/SectionWrapper';
 import { Button } from '@/components/ui/Button';
 import { commonContent } from '@/content/common';
 import { useFlow } from '@/features/flow/FlowProvider';
+import { trackEvent } from '@/lib/analytics';
 import { issueAccount } from '@/lib/api/accounts';
 import { toErrorKind } from '@/lib/api/errors';
 import type { ErrorKind } from '@/lib/api/errors';
@@ -36,9 +37,11 @@ export function AccountSection({ id }: SectionProps) {
       const nextAccount = await issueAccount(orgCode);
       setAccount(nextAccount);
       setRequestStatus('idle');
+      trackEvent('account_issued', { result: 'success' });
     } catch (error) {
       setErrorKind(toErrorKind(error));
       setRequestStatus('error');
+      trackEvent('account_issued', { result: 'error' });
     }
   }
 

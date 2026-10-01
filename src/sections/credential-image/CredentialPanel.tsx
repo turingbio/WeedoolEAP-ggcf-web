@@ -8,6 +8,7 @@ import { accountContent } from '../account/content';
 import { CredentialCard } from './CredentialCard';
 import { credentialImageContent as content } from './content';
 import { downloadCredentialPng } from './downloadCredentialPng';
+import { trackEvent } from '@/lib/analytics';
 import { formatTime } from '@/lib/format';
 
 type CredentialPanelProps = {
@@ -22,15 +23,17 @@ export function CredentialPanel({ orgCode, account }: CredentialPanelProps) {
   const [hasError, setHasError] = useState(false);
 
   /** 카드를 PNG로 내려받는다. 실패하면 오류 문구를 보여 준다 */
-  async function saveImage() {
+  async function saveImage(trigger: 'auto' | 'manual') {
     const card = cardRef.current;
     if (!card) return;
 
     try {
       await downloadCredentialPng(card, content.fileName);
       setHasError(false);
+      trackEvent('credential_saved', { trigger, result: 'success' });
     } catch {
       setHasError(true);
+      trackEvent('credential_saved', { trigger, result: 'error' });
     }
   }
 
@@ -39,14 +42,14 @@ export function CredentialPanel({ orgCode, account }: CredentialPanelProps) {
     if (lastDownloadedAccountIdRef.current === account.accountId) return;
 
     lastDownloadedAccountIdRef.current = account.accountId;
-    void saveImage();
+    void saveImage('auto');
     // 계정이 바뀔 때만 실행한다
   }, [account]);
 
   async function handleSave() {
     if (isSaving) return;
     setIsSaving(true);
-    await saveImage();
+    await saveImage('manual');
     setIsSaving(false);
   }
 

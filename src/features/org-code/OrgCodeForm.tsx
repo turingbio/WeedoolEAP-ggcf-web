@@ -5,6 +5,7 @@ import type { ReadonlyURLSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { commonContent } from '@/content/common';
 import { useFlow } from '@/features/flow/FlowProvider';
+import { trackEvent } from '@/lib/analytics';
 import { verifyOrgCode } from '@/lib/api/org';
 import { orgCodeContent } from './content';
 
@@ -83,6 +84,8 @@ export function OrgCodeForm() {
     if (checkingValueRef.current === orgCode) {
       checkingValueRef.current = null;
     }
+
+    trackEvent('org_code_checked', { result });
 
     if (result === 'ok') {
       confirmOrgCode(orgCode);

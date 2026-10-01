@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { TrackedLink } from '@/components/TrackedLink';
 import type { SectionProps } from '../types';
 import { heroContent } from './content';
 
@@ -92,12 +93,13 @@ export function HeroSection({ id }: SectionProps) {
           </h1>
           <p className="mt-9 text-lg text-muted md:text-[28px]">{heroContent.footer}</p>
           <div className="mt-7 flex flex-wrap gap-2.5">
-            <a
+            <TrackedLink
               href="#account"
+              event={['cta_account_click', { location: 'hero' }]}
               className="inline-flex min-h-14 items-center justify-center rounded-full bg-brand-strong px-9 text-lg font-semibold text-white shadow-[0_8px_24px_rgb(0_102_255_/_0.28)] transition-colors duration-150 hover:bg-brand-mid focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-brand-link md:min-h-16 md:px-11 md:text-xl"
             >
               {heroContent.ctaButton}
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </div>

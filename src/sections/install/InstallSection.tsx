@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { SectionWrapper } from '@/components/SectionWrapper';
+import { TrackedLink } from '@/components/TrackedLink';
 import { InstallDecoration } from './InstallDecoration';
 import { links } from '@/config/links';
 import type { SectionProps } from '../types';
@@ -7,7 +8,7 @@ import { installContent } from './content';
 
 const stores = [
   {
-    key: 'ios',
+    key: 'ios' as const,
     href: links.appStore.href,
     qrImage: links.appStore.qrImage,
     buttonLabel: installContent.appStoreButton,
@@ -18,7 +19,7 @@ const stores = [
     badgeClass: '',
   },
   {
-    key: 'android',
+    key: 'android' as const,
     href: links.googlePlay.href,
     qrImage: links.googlePlay.qrImage,
     buttonLabel: installContent.googlePlayButton,
@@ -55,8 +56,9 @@ export function InstallSection({ id }: SectionProps) {
               unoptimized
               className="h-[120px] w-[120px] rounded-lg bg-white"
             />
-            <a
+            <TrackedLink
               href={store.href}
+              event={['store_click', { store: store.key }]}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-auto inline-flex items-end justify-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
@@ -69,7 +71,7 @@ export function InstallSection({ id }: SectionProps) {
                 unoptimized
                 className={store.badgeClass}
               />
-            </a>
+            </TrackedLink>
           </div>
         ))}
       </div>
@@ -92,8 +94,9 @@ export function InstallSection({ id }: SectionProps) {
       </p>
 
       <div className="mt-7 flex justify-center">
-        <a
+        <TrackedLink
           href={links.manual.href}
+          event={['manual_download']}
           download={links.manual.fileName}
           className="inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-6 text-base font-medium text-ink shadow-[0_4px_14px_rgb(32_51_77_/_0.10)] transition-colors hover:bg-[#f4f8fd] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
         >
@@ -111,7 +114,7 @@ export function InstallSection({ id }: SectionProps) {
             <path d="M5 18.5h14" />
           </svg>
           {installContent.manualButton}
-        </a>
+        </TrackedLink>
       </div>
     </SectionWrapper>
   );

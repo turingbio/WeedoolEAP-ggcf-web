@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { commonContent } from '@/content/common';
+import { trackEvent } from '@/lib/analytics';
 
 export function Header() {
   const [isHidden, setIsHidden] = useState(false);
@@ -49,6 +50,7 @@ export function Header() {
         </a>
         <a
           href="#account"
+          onClick={() => trackEvent('cta_account_click', { location: 'header' })}
           className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-full bg-brand-strong px-4 text-sm font-[550] text-white transition-colors duration-150 hover:bg-brand-mid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-link md:min-h-11 md:px-6 md:text-base"
         >
           {commonContent.header.ctaButton}
